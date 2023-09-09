@@ -9,17 +9,17 @@ public class Despesa extends Transacao
 {
 	protected String beneficiario;
 
-	public Despesa(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status, String beneficiario)
+	public Despesa(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoriaId, int subcategoriaId, Status status, String beneficiario)
 	{
-		super(id, data, valor, metodo, descricao, categoria, subcategoria, status);
+		super(id, data, valor, metodo, descricao, categoriaId, subcategoriaId, status);
 		this.beneficiario = beneficiario;
 	}
 
 
 	@Override
- 	public void update(Date data, BigDecimal valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status, String interessado)
+ 	public void update(Date data, BigDecimal valor, Metodo metodo, String descricao, int categoriaId, int subcategoriaId, Status status, String interessado)
 	{
-		super.update(data, valor, metodo, descricao, categoria, subcategoria, status, null);
+		super.update(data, valor, metodo, descricao, categoriaId, subcategoriaId, status, null);
 		this.beneficiario = interessado;
 	}
 
