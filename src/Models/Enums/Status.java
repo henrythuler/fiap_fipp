@@ -19,11 +19,13 @@ public enum Status {
 	}
 
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public String getDescricao() {
+	public String getDescricao()
+	{
 		return descricao;
 	}
 

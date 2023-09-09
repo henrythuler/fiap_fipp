@@ -28,21 +28,28 @@ public abstract class Transacao
 		this.status = status;
 	}
 
-    /* TO DO:
-	public void create(Transacao transacao) {
-		TransacaoRepository.create(transacao);
+
+	public void update(Date data, double valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status, String interessado)
+	{
+		this.data = data;
+		this.valor = valor;
+		this.metodo = metodo;
+		this.descricao = descricao;
+		this.categoria = categoria;
+		this.subcategoria = subcategoria;
+		this.status = status;
 	}
-	
-	public Transacao read(int id) {
-		return TransacaoRepository.read(id);
+
+	public void show()
+	{
+		System.out.println("Id: " + this.id);
+		System.out.println("Data: " + this.data);
+		System.out.println("Valor: " + this.valor);
+		System.out.println("Método: " + this.metodo.getDescricao());
+		System.out.println("Descrição: " + this.descricao);
+		System.out.println("Categoria: " + this.categoria);
+		System.out.println("Subcategoria: " + this.subcategoria);
+		System.out.println("Status: " + this.status.getDescricao());
 	}
-	
-	public void update (Transacao transacao) {
-		TransacaoRepository.update(transacao);
-	}
-	
-	public void delete (int id) {
-		TransacaoRepository.delete(id);
-	}
-     */
+
 }

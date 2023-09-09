@@ -14,34 +14,19 @@ public class Receita extends Transacao
 		this.pagador = pagador;
 	}
 
+	@Override
+	public void update(Date data, double valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status, String interessado)
+	{
+		super.update(data, valor, metodo, descricao, categoria, subcategoria, status, null);
+		this.pagador = interessado;
+	}
 
-	public void showReceita(){
-		System.out.println("---------------------------------------------");
-		System.out.println("Id: " + this.id);
-		System.out.println("Data: " + this.data);
-		System.out.println("Valor: " + this.valor);
-		System.out.println("Método: " + this.metodo.getDescricao());
-		System.out.println("Descrição: " + this.descricao);
-		System.out.println("Categoria: " + this.categoria);
-		System.out.println("Subcategoria: " + this.subcategoria);
-		System.out.println("Status: " + this.status.getDescricao());
+
+	@Override
+	public void show()
+	{
+		super.show();
 		System.out.println("Pagador: " + this.pagador);
-		System.out.println("---------------------------------------------");
 	}
 
-
-
-    /* TO DO:
-	public void create(Receita receita) {
-		TransacaoRepository.create(receita);
-	}
-	
-	public Receita read(int id) {
-		return (Receita) TransacaoRepository.read(id);
-	}
-	
-	public void update (Receita receita) {
-		TransacaoRepository.update(receita);
-	}
-    */
 }
