@@ -8,11 +8,12 @@ public enum Status {
 	AGENDADO(4, "Agendado");
 
 
-	private int id;
-	private String descricao;
+	private final int id;
+	private final String descricao;
 
 
-	private Status(int id, String descricao) {
+	private Status(int id, String descricao)
+	{
 		this.id = id;
 		this.descricao = descricao;
 	}

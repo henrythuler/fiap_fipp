@@ -19,8 +19,8 @@ public abstract class Transacao
 	protected Status status;
 
 	
-	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoria,
-			int subcategoria, Status status) {
+	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status)
+	{
 		this.id = id;
 		this.data = data;
 		this.valor = valor;
@@ -31,7 +31,7 @@ public abstract class Transacao
 		this.status = status;
 	}
 
-    /*
+    /* TO DO:
 	public void create(Transacao transacao) {
 		TransacaoRepository.create(transacao);
 	}

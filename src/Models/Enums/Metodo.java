@@ -8,10 +8,11 @@ public enum Metodo {
 	PIX(3, "Pix"),
 	DINHEIRO(4, "Dinheiro");
 
-	private int id;
-	private String descricao;
+	private final int id;
+	private final String descricao;
 
-	private Metodo(int id, String descricao) {
+	private Metodo(int id, String descricao)
+	{
 		this.id = id;
 		this.descricao = descricao;
 	}
