@@ -1,17 +1,14 @@
 package Models.Entities;
 
-
 import Models.Enums.Metodo;
 import Models.Enums.Status;
-import java.math.BigDecimal;
 import java.util.Date;
-
 
 public abstract class Transacao
 {
 	protected int id;
 	protected Date data;
-	protected BigDecimal valor;
+	protected double valor;
 	protected Metodo metodo;
 	protected String descricao;
 	protected int categoria;
@@ -19,7 +16,7 @@ public abstract class Transacao
 	protected Status status;
 
 	
-	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status)
+	public Transacao(int id, Date data, double valor, Metodo metodo, String descricao, int categoria, int subcategoria, Status status)
 	{
 		this.id = id;
 		this.data = data;
