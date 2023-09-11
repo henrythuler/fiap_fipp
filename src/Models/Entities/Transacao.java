@@ -12,34 +12,35 @@ public abstract class Transacao
 	protected BigDecimal valor;
 	protected Metodo metodo;
 	protected String descricao;
-	protected int categoriaId;
-	protected int subcategoriaId;
+	protected Categoria categoria;
+	protected Subcategoria subcategoria;
 	protected Status status;
 
 	
-	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, int categoriaId, int subcategoriaId, Status status)
+	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, Categoria categoria, Subcategoria subcategoria, Status status)
 	{
 		this.id = id;
 		this.data = data;
 		this.valor = valor;
 		this.metodo = metodo;
 		this.descricao = descricao;
-		this.categoriaId = categoriaId;
-		this.subcategoriaId = subcategoriaId;
+		this.categoria = categoria;
+		this.subcategoria = subcategoria;
 		this.status = status;
 	}
 
 
-	public void update(Date data, BigDecimal valor, Metodo metodo, String descricao, int categoriaId, int subcategoriaId, Status status, String interessado)
+	public void update(Date data, BigDecimal valor, Metodo metodo, String descricao, Categoria categoria, Subcategoria subcategoria, Status status, String interessado)
 	{
 		this.data = data;
 		this.valor = valor;
 		this.metodo = metodo;
 		this.descricao = descricao;
-		this.categoriaId = categoriaId;
-		this.subcategoriaId = subcategoriaId;
+		this.categoria = categoria;
+		this.subcategoria = subcategoria;
 		this.status = status;
 	}
+
 
 	public void show()
 	{
@@ -48,8 +49,9 @@ public abstract class Transacao
 		System.out.println("Valor: " + this.valor);
 		System.out.println("Método: " + this.metodo.getDescricao());
 		System.out.println("Descrição: " + this.descricao);
-		System.out.println("Categoria: " + this.categoriaId);
-		System.out.println("Subcategoria: " + this.subcategoriaId);
+		System.out.println("Categoria: " + this.categoria.getDescricao());
+		if (this.subcategoria != null)
+			System.out.println("Subcategoria: " + this.subcategoria.getDescricao());
 		System.out.println("Status: " + this.status.getDescricao());
 	}
 
