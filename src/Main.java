@@ -1,5 +1,5 @@
-import Models.Entities.*;
-import Models.Enums.*;
+import models.entities.*;
+import models.enums.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
