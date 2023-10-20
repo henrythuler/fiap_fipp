@@ -15,6 +15,9 @@ public class Receita extends Transacao
 	}
 
 
+	public Receita(){}
+
+
 	@Override
 	public void update(Date data, BigDecimal valor, Metodo metodo, String descricao, Categoria categoria, Subcategoria subcategoria, Status status, String interessado)
 	{

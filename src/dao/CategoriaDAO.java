@@ -77,6 +77,8 @@ public class CategoriaDAO {
 
             while(result.next()){
 
+                categoria = new Categoria();
+
                 categoria.setTipo(Tipo.valueById(result.getInt(1)));
                 categoria.setDescricao(result.getString(2));
                 categoria.setIdUsuario(result.getInt(3));

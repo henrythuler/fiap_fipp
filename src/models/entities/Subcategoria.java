@@ -19,6 +19,9 @@ public class Subcategoria
     }
 
 
+    public Subcategoria(){}
+
+
     public void update(int categoriaId, String descricao)
     {
         this.categoriaId = categoriaId;

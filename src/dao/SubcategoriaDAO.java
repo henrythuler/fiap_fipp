@@ -20,7 +20,6 @@ public class SubcategoriaDAO {
 
         conexao = FippDBManager.obterConexao();
         PreparedStatement pstmt = null;
-
         Subcategoria subcategoria = null;
 
         try{
@@ -32,6 +31,8 @@ public class SubcategoriaDAO {
 
             while(result.next()){
 
+                subcategoria = new Subcategoria();
+
                 subcategoria.setId(result.getInt(1));
                 subcategoria.setIdUsuario(result.getInt(2));
                 subcategoria.setTipo(Tipo.valueById(result.getInt(3)));
@@ -39,6 +40,7 @@ public class SubcategoriaDAO {
                 subcategoria.setCategoriaId(result.getInt(5));
 
             }
+
 
         }catch (SQLException e){
 
@@ -59,9 +61,9 @@ public class SubcategoriaDAO {
 
             }
 
-            return subcategoria;
-
         }
+
+        return subcategoria;
 
     }
 
