@@ -78,9 +78,6 @@ public class ReceitaDAO {
         //Instanciando o meu statement
         PreparedStatement pstmt = null;
 
-        //Criando um objeto de receita para armazenar a receita recuperada do Banco de Dados
-        Receita receita = null;
-
         List<Receita> receitas = new ArrayList<>();
 
         try{
@@ -89,6 +86,9 @@ public class ReceitaDAO {
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
+
+                //Criando um objeto de receita para armazenar a receita recuperada do Banco de Dados
+                Receita receita = new Receita();
 
                 receita.setId(result.getInt(1));
                 receita.setIdUsuario(result.getInt(2));

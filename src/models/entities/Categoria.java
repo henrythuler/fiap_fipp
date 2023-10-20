@@ -19,6 +19,9 @@ public class Categoria
     }
 
 
+    public Categoria(){}
+
+
     public void update(Tipo tipo, String descricao)
     {
         this.tipo = tipo;
