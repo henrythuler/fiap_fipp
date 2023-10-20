@@ -3,7 +3,7 @@ package models.entities;
 import models.enums.Metodo;
 import models.enums.Status;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 public abstract class Transacao
 {
@@ -15,9 +15,10 @@ public abstract class Transacao
 	protected Categoria categoria;
 	protected Subcategoria subcategoria;
 	protected Status status;
+	protected int idUsuario;
 
 	
-	public Transacao(int id, Date data, BigDecimal valor, Metodo metodo, String descricao, Categoria categoria, Subcategoria subcategoria, Status status)
+	public Transacao(int id, int idUsuario, Date data, BigDecimal valor, Metodo metodo, String descricao, Categoria categoria, Subcategoria subcategoria, Status status)
 	{
 		this.id = id;
 		this.data = data;
@@ -27,6 +28,7 @@ public abstract class Transacao
 		this.categoria = categoria;
 		this.subcategoria = subcategoria;
 		this.status = status;
+		this.idUsuario = idUsuario;
 	}
 
 
@@ -54,5 +56,78 @@ public abstract class Transacao
 			System.out.println("Subcategoria: " + this.subcategoria.getDescricao());
 		System.out.println("Status: " + this.status.getDescricao());
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public Date getData() {
+		return data;
+	}
+
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+
+	public Metodo getMetodo() {
+		return metodo;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+
+	public Subcategoria getSubcategoria() {
+		return subcategoria;
+	}
+
+
+	public Status getStatus() {
+		return status;
+	}
+
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setId(int id) { this.id = id; }
+
+
+	public void setData(Date data) { this.data = data; }
+
+
+	public void setValor(BigDecimal valor) { this.valor = valor; }
+
+
+	public void setMetodo(Metodo metodo) { this.metodo = metodo; }
+
+
+	public void setDescricao(String descricao) { this.descricao = descricao; }
+
+
+	public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+
+
+	public void setSubcategoria(Subcategoria subcategoria) { this.subcategoria = subcategoria; }
+
+
+	public void setStatus(Status status) { this.status = status; }
+
+
+	public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+
 
 }

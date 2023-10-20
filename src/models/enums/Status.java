@@ -19,6 +19,20 @@ public enum Status {
 	}
 
 
+	public static Status valueById(int id)
+	{
+
+		for(Status s : Status.values()){
+
+			if(s.getId() == id) return s;
+
+		}
+
+		return null;
+
+	}
+
+
 	public int getId()
 	{
 		return id;
