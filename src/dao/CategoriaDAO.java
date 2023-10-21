@@ -11,104 +11,100 @@ public class CategoriaDAO {
 
     static Connection conexao;
 
-
-    public static void inserir(Categoria categoria)
+    public static Categoria getById(int id)
     {
-        //Recuperando uma conexão com o Banco de Dados
         conexao = FippDBManager.obterConexao();
-
-        //Instanciando o meu statement
         PreparedStatement pstmt = null;
+        Categoria categoria = null;
 
-        try{
+        try
+        {
+            pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA WHERE CD_CATEGORIA = ?");
+            pstmt.setInt(1, id);
+            ResultSet result = pstmt.executeQuery();
 
-            pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
-                    "(ID_TIPO, DS_CATEGORIA, CD_USUARIO, CD_CATEGORIA)" +
-                    "VALUES (?, ?, ?, ?)");
-
-            //Passando os valores para cada coluna
-            pstmt.setInt(1, categoria.getTipo().getId());
-            pstmt.setString(2, categoria.getDescricao());
-            pstmt.setInt(3, categoria.getIdUsuario());
-            pstmt.setInt(4, categoria.getId());
-
-            pstmt.executeUpdate();
-
-            System.out.println("Categoria cadastrada com sucesso!");
-
-        }catch(SQLException e){
-
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-
-        }finally {
-
-            try {
-
-                pstmt.close();
-                conexao.close();
-
-            }catch (SQLException e){
-
-                System.err.println(e.getMessage());
-                e.printStackTrace();
-
+            while(result.next())
+            {
+                categoria = new Categoria
+                        (
+                                result.getInt(1),
+                                result.getInt(2),
+                                Tipo.valueById(result.getInt(3)),
+                                result.getString(4)
+                        );
             }
 
         }
-
-    }
-
-
-    public static Categoria getCategoriaById(int id)
-    {
-
-        conexao = FippDBManager.obterConexao();
-        PreparedStatement pstmt = null;
-
-        Categoria categoria = null;
-
-        try{
-
-            pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA WHERE CD_CATEGORIA = ?");
-            pstmt.setInt(1, id);
-
-            ResultSet result = pstmt.executeQuery();
-
-            while(result.next()){
-
-                categoria = new Categoria();
-
-                categoria.setTipo(Tipo.valueById(result.getInt(1)));
-                categoria.setDescricao(result.getString(2));
-                categoria.setIdUsuario(result.getInt(3));
-                categoria.setId(result.getInt(4));
-
-            }
-
-        }catch (SQLException e){
-
+        catch (SQLException e)
+        {
             System.err.println(e.getMessage());
             e.printStackTrace();
-
-        }finally {
-
-            try {
-
+        }
+        finally
+        {
+            try
+            {
                 pstmt.close();
                 conexao.close();
-
-            }catch (SQLException e){
-
+            }
+            catch (SQLException e)
+            {
                 System.err.println(e.getMessage());
                 e.printStackTrace();
-
             }
 
             return categoria;
+        }
+    }
 
+
+
+    public static int inserir(Categoria categoria)
+    {
+        conexao = FippDBManager.obterConexao();
+        PreparedStatement pstmt = null;
+        int response = 0;
+
+        try
+        {
+            pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
+                    "(CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
+                    "VALUES (?, ?, ?, ?)");
+
+            pstmt.setInt(1, categoria.getId());
+            pstmt.setInt(2, categoria.getIdUsuario());
+            pstmt.setInt(3, categoria.getTipo().getId());
+            pstmt.setString(4, categoria.getDescricao());
+
+            response = pstmt.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                pstmt.close();
+                conexao.close();
+            }
+            catch (SQLException e)
+            {
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
         }
 
+        return response;
+    }
+
+
+
+    public static void excluir()
+    {
+        // TO DO: Implementar
     }
 
 }

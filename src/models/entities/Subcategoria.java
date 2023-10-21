@@ -11,15 +11,12 @@ public class Subcategoria
     private int idUsuario;
 
 
-    public Subcategoria(int id, int categoriaId, String descricao)
+    public Subcategoria(int id, int categoriaId, Tipo tipo, String descricao)
     {
         this.id = id;
         this.categoriaId = categoriaId;
         this.descricao = descricao;
     }
-
-
-    public Subcategoria(){}
 
 
     public void update(int categoriaId, String descricao)

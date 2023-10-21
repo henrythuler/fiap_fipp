@@ -13,7 +13,7 @@ public class FippDBManager {
 
         try{
 
-            conexao = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "fiap123");
+            conexao = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCLPDB1", "system", "1q2w3e4r@#$");
 
         }catch(SQLException e){
 
