@@ -1,6 +1,6 @@
 package br.com.fipp.dao;
 
-import br.com.fipp.jdbc.FippDBManager;
+import br.com.fipp.jdbc.ConnectionManager;
 import br.com.fipp.models.entities.Categoria;
 import br.com.fipp.models.enums.Tipo;
 import java.sql.*;
@@ -19,7 +19,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         List<Categoria> categorias = new ArrayList<>();
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA ORDER BY CD_CATEGORIA");
             ResultSet result = pstmt.executeQuery();
 
@@ -57,7 +57,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         Categoria categoria = null;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA WHERE CD_CATEGORIA = ?");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
@@ -95,7 +95,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         int response = 0;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
                     "(CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
                     "VALUES (?, ?, ?, ?)");

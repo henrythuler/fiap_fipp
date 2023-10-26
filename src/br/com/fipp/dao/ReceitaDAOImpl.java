@@ -1,6 +1,6 @@
 package br.com.fipp.dao;
 
-import br.com.fipp.jdbc.FippDBManager;
+import br.com.fipp.jdbc.ConnectionManager;
 import br.com.fipp.models.entities.Receita;
 import br.com.fipp.models.enums.Metodo;
 import br.com.fipp.models.enums.Status;
@@ -20,7 +20,7 @@ public class ReceitaDAOImpl implements ReceitaDAO {
         List<Receita> receitas = new ArrayList<>();
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_RECEITA ORDER BY CD_RECEITA");
             ResultSet result = pstmt.executeQuery();
 
@@ -64,7 +64,7 @@ public class ReceitaDAOImpl implements ReceitaDAO {
         Receita receita = null;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_RECEITA WHERE CD_RECEITA = ?");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
@@ -108,7 +108,7 @@ public class ReceitaDAOImpl implements ReceitaDAO {
         int response = 0;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("INSERT INTO T_FPP_RECEITA" +
                     "(CD_RECEITA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_PAGADOR)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

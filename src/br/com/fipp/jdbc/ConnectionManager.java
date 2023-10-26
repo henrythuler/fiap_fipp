@@ -3,9 +3,19 @@ package br.com.fipp.jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class FippDBManager {
+public class ConnectionManager {
 
-    public static Connection obterConexao()
+    private static ConnectionManager instance;
+
+    private ConnectionManager(){}
+
+    public static ConnectionManager getInstance(){
+        if (instance == null)
+            instance = new ConnectionManager();
+        return instance;
+    }
+
+    public Connection getConnection()
     {
         Connection conexao = null;
 

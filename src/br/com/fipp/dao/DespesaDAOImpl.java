@@ -1,6 +1,6 @@
 package br.com.fipp.dao;
 
-import br.com.fipp.jdbc.FippDBManager;
+import br.com.fipp.jdbc.ConnectionManager;
 import br.com.fipp.models.entities.Despesa;
 import br.com.fipp.models.enums.Metodo;
 import br.com.fipp.models.enums.Status;
@@ -20,7 +20,7 @@ public class DespesaDAOImpl implements DespesaDAO {
         List<Despesa> despesas = new ArrayList<>();
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_DESPESA ORDER BY CD_DESPESA");
             ResultSet result = pstmt.executeQuery();
 
@@ -63,7 +63,7 @@ public class DespesaDAOImpl implements DespesaDAO {
         Despesa despesa = null;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_DESPESA WHERE CD_DESPESA = ?");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
@@ -106,7 +106,7 @@ public class DespesaDAOImpl implements DespesaDAO {
         int response = 0;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("INSERT INTO T_FPP_DESPESA" +
                     "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

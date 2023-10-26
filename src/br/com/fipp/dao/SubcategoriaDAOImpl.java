@@ -1,6 +1,6 @@
 package br.com.fipp.dao;
 
-import br.com.fipp.jdbc.FippDBManager;
+import br.com.fipp.jdbc.ConnectionManager;
 import br.com.fipp.models.entities.Subcategoria;
 import br.com.fipp.models.enums.Tipo;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         List<Subcategoria> subcategorias = new ArrayList<>();
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA ORDER BY CD_SUBCATEGORIA");
             ResultSet result = pstmt.executeQuery();
 
@@ -61,7 +61,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         Subcategoria subcategoria = null;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA WHERE CD_SUBCATEGORIA = ?");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
@@ -100,7 +100,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         List<Subcategoria> subcategorias = new ArrayList<>();
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA WHERE CD_CATEGORIA = ? ORDER BY CD_CATEGORIA");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
@@ -140,7 +140,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         int response = 0;
 
         try{
-            conexao = FippDBManager.obterConexao();
+            conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("INSERT INTO T_FPP_SUBCATEGORIA" +
                     "(CD_SUBCATEGORIA, CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
                     "VALUES (?, ?, ?, ?, ?)");
