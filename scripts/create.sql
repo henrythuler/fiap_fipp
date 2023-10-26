@@ -42,15 +42,15 @@ ALTER TABLE T_FPP_CIDADE ADD CONSTRAINT PK_FPP_CIDADE PRIMARY KEY ( cd_cidade );
 
 CREATE TABLE T_FPP_DESPESA (
     cd_despesa      NUMBER(3) NOT NULL,
-    vl_valor        NUMBER(15, 5) NOT NULL,
-    ds_despesa      VARCHAR2(32) NOT NULL,
-    dt_data         DATE NOT NULL,
     cd_usuario      VARCHAR2(15) NOT NULL,
+    dt_data         DATE NOT NULL,
+    vl_valor        NUMBER(15, 5) NOT NULL,
     nr_metodo       NUMBER(3),
-    nm_beneficiario VARCHAR2(50),
-    st_status       NUMBER(3),
+    ds_descricao      VARCHAR2(32) NOT NULL,
     cd_categoria    VARCHAR2(15) NOT NULL,
-    cd_subcategoria VARCHAR2(15)
+    cd_subcategoria VARCHAR2(15),
+    st_status       NUMBER(3),
+    nm_beneficiario VARCHAR2(50)
 );
 
 ALTER TABLE T_FPP_DESPESA ADD CONSTRAINT PK_FPP_DESPESA PRIMARY KEY ( cd_despesa );
@@ -221,3 +221,9 @@ ALTER TABLE T_FPP_USUARIO_ENDERECO
 ALTER TABLE T_FPP_USUARIO_ENDERECO
     ADD CONSTRAINT FK_USUARIOENDERECO_USUARIO FOREIGN KEY ( cd_usuario )
         REFERENCES T_FPP_USUARIO ( cd_usuario );
+
+
+INSERT INTO T_FPP_USUARIO(CD_USUARIO, NM_NOME, DT_NASCIMENTO, DS_EMAIL, DS_SENHA) VALUES(1,'Felipe Gandra', TO_DATE('01/03/1984', 'DD/MM/YYYY'), 'fgandraf@gmail.com', '1234');
+INSERT INTO T_FPP_USUARIO(CD_USUARIO, NM_NOME, DT_NASCIMENTO, DS_EMAIL, DS_SENHA) VALUES(2,'Henry Thuler', TO_DATE('01/01/1998', 'DD/MM/YYYY'), 'henry@email.com', 'abcd');
+
+COMMIT
