@@ -40,18 +40,20 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         }catch (SQLException e){
             System.err.println(e.getMessage());
             e.printStackTrace();
-        }
-        finally{
-            try{
+        }finally
+        {
+            try
+            {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
+            }
+            catch (SQLException e)
+            {
                 System.err.println(e.getMessage());
                 e.printStackTrace();
             }
-
-            return subcategorias;
         }
+        return subcategorias;
     }
 
 

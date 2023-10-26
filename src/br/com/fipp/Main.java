@@ -1,3 +1,5 @@
+package br.com.fipp;
+
 import br.com.fipp.dao.*;
 import br.com.fipp.models.entities.*;
 import br.com.fipp.models.enums.*;

@@ -24,7 +24,7 @@ public class Despesa extends Transacao
 
 
 	public String getBeneficiario() { return this.beneficiario;}
-	public void setBeneficiario(String pagador) { this.beneficiario = beneficiario; }
+	public void setBeneficiario(String beneficiario) { this.beneficiario = beneficiario; }
 
 
 	@Override

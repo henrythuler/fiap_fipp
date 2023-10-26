@@ -1,5 +1,6 @@
 package br.com.fipp.dao;
 
+
 import br.com.fipp.jdbc.ConnectionManager;
 import br.com.fipp.models.entities.Categoria;
 import br.com.fipp.models.enums.Tipo;
