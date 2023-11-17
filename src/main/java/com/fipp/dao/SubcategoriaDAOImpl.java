@@ -17,9 +17,9 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
 
 
     @Override
-    public List<Subcategoria> getAll(){
+    public ArrayList<Subcategoria> getAll(){
 
-        List<Subcategoria> subcategorias = new ArrayList<>();
+        ArrayList<Subcategoria> subcategorias = new ArrayList<>();
 
         try{
             conexao = ConnectionManager.getInstance().getConnection();
@@ -168,6 +168,35 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         }
 
         return response;
+    }
+
+    @Override
+    public boolean update(Subcategoria subcategoria){
+        try{
+            conexao = ConnectionManager.getInstance().getConnection();
+            pstmt = conexao.prepareStatement("UPDATE T_FPP_SUBCATEGORIA SET cd_categoria = ?, cd_usuario = ?, id_tipo = ?, ds_descricao = ? WHERE cd_subcategoria = ?");
+            pstmt.setInt(1, subcategoria.getCategoriaId());
+            pstmt.setInt(2, subcategoria.getIdUsuario());
+            pstmt.setInt(3, subcategoria.getTipo().getId());
+            pstmt.setString(4, subcategoria.getDescricao());
+            pstmt.setInt(5, subcategoria.getId());
+
+            pstmt.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }finally{
+            try{
+                pstmt.close();
+                conexao.close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
 }

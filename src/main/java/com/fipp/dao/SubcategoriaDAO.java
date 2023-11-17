@@ -13,5 +13,6 @@ public interface SubcategoriaDAO {
     List<Subcategoria> getByCategoriaId(int id);
 
     int inserir(Subcategoria subcategoria);
+    boolean update(Subcategoria subcategoria);
 
 }
