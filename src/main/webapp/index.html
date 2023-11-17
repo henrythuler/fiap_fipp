@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Despesas</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <h2>FIPP</h2>
+        <nav>
+            <a href="index.html">Cadastrar Despesas</a>
+            <a href="#">Cadastrar Receita</a>
+            <a href="#">Cadastrar Categoria</a> 
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Cadastro de Despesas</h1>
+        <form id="formDespesa">
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" required>
+            
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" required>
+            
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" name="categoria">
+                <option value="alimentacao">Alimentação</option>
+                <option value="transporte">Transporte</option>
+                <option value="saude">Saúde</option>
+                <option value="educacao">Educação</option>
+                <option value="outros">Outros</option>
+            </select>
+
+            <label for="subcategoria">Subcategoria:</label>
+            <select id="subcategoria" name="subcategoria">
+                <option value="alimentacao">Alimentação</option>
+                <option value="transporte">Transporte</option>
+                <option value="saude">Saúde</option>
+                <option value="educacao">Educação</option>
+                <option value="outros">Outros</option>
+            </select>
+            <button type="submit">Cadastrar Despesa</button>
+        </form>
+    </div>
+    <a class="btn btn-secondary" href="/src/main/webapp/listagem_despesa.html">Listagem de produtos</a>
+</body>
+</html>
