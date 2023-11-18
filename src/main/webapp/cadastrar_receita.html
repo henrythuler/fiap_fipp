@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Despesas</title>
+    <title>Cadastro de Receitas</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -12,14 +12,14 @@
         </div>
         <h2>FIPP</h2>
         <ul>
-            <li><a href="index.html" class="active">Cadastrar Despesa</a>
-            <li><a href="cadastrar_receita.html">Cadastrar Receita</a>
+            <li><a href="index.html">Cadastrar Despesa</a>
+            <li><a href="cadastrar_receita.html" class="active">Cadastrar Receita</a>
             <li><a href="#">Cadastrar Categoria</a> 
         </ul>
     </header>
 
     <div class="container">
-        <h1>Cadastro de Despesas</h1>
+        <h1>Cadastro de Receitas</h1>
         <form id="formDespesa">
             <label for="descricao">Descrição:</label>
             <input type="text" id="descricao" name="descricao" required>
@@ -52,9 +52,9 @@
                 <button type="button" class="green-button">Criar Subcategoria</button>
             </div>
 
-            <button type="submit">Cadastrar Despesa</button>
+            <button type="submit">Cadastrar Receita</button>
         </form>
     </div>
-    <a class="listar" href="/src/main/webapp/listagem_despesa.html">Listagem de Despesas</a>
+    <a class="listar" href="/src/main/webapp/listagem_receita.html">Listagem de Receitas</a>
 </body>
 </html>

@@ -10,7 +10,7 @@ body {
 
 header {
     width: 100%;
-    background-color: #000000;
+    background-color: #167D7F;
     color: #7e7c7c;
     padding: 10px 0;
     display: flex;
@@ -84,17 +84,18 @@ select {
 
 button {
     padding: 12px 20px;
-    background-color: #007bff;
+    background-color: #29A0B1;
     color: #fff;
     border: none;
     border-radius: 4px;
+    margin-top: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-a {
+a.listar {
     padding: 12px 20px;
-    background-color: #007bff;
+    background-color: #299fb198;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -106,3 +107,48 @@ a {
 button:hover {
     background-color: #0056b3;
 }
+
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.button-container button {
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 4px;
+    background-color: #98d7c2;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #167D7F;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #299fb1af;
+}
+
+.active {
+    background-color: #299fb1af;
+  }

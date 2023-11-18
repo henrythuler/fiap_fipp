@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Listagem de Despesas</title>
+    <title>Listagem de Receitas</title>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -19,17 +19,16 @@
             <li><a href="#">Cadastrar Categoria</a> 
         </ul>
     </header>
-
     <div class="container p-3">
         <fmt:formatNumber value="${p.getValue()}" type="currency"/>
-        <h1>Listagem Despesa</h1>
+        <h1>Listagem receita</h1>
         <table class="table table-striped">
             <tr>
                 <th>Nome</th>
                 <th>Preço</th>
                 <th>Condição</th>
             </tr>
-            <c:forEach var="p" items="${despesas}">
+            <c:forEach var="p" items="${receitas}">
                 <tr>
                     <td>${p.getName()}</td>
                     <td><fmt:formatNumber value="${p.getValue()}" type="currency" /></td>
