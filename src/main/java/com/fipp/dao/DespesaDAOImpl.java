@@ -1,6 +1,7 @@
 package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
+import com.fipp.models.entities.Categoria;
 import com.fipp.models.entities.Despesa;
 import com.fipp.models.enums.*;
 import java.sql.*;
@@ -142,6 +143,44 @@ public class DespesaDAOImpl implements DespesaDAO {
         }
 
         return response;
+    }
+
+    @Override
+    public boolean update(Despesa despesa){
+        try{
+            conexao = ConnectionManager.getInstance().getConnection();
+            pstmt = conexao.prepareStatement("UPDATE T_FPP_DESPESA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESCRICAO = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_BENEFICIARIO = ? WHERE CD_DESPESA = ?");
+            pstmt.setInt(1, despesa.getIdUsuario());
+            pstmt.setDate(2, despesa.getData());
+            pstmt.setBigDecimal(3, despesa.getValor());
+            pstmt.setInt(4, despesa.getMetodo().getId());
+            pstmt.setString(5, despesa.getDescricao());
+            pstmt.setInt(6, despesa.getCategoria().getId());
+            if(despesa.getSubcategoria() != null)
+                pstmt.setInt(7, despesa.getSubcategoria().getId());
+            else
+                pstmt.setNull(7, Types.NULL);
+
+            pstmt.setInt(8, despesa.getStatus().getId());
+            pstmt.setString(9, despesa.getBeneficiario());
+            pstmt.setInt(10, despesa.getId());
+
+            pstmt.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }finally{
+            try{
+                pstmt.close();
+                conexao.close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
 }

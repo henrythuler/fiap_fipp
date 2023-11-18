@@ -10,4 +10,6 @@ public interface DespesaDAO {
     Despesa getById(int id);
 
     int inserir(Despesa despesa);
+
+    boolean update(Despesa despesa);
 }
