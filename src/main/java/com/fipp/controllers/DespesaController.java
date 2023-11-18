@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet("/despesas")
-public class DespesasController extends HttpServlet {
+@WebServlet("/despesa")
+public class DespesaController extends HttpServlet {
 
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
