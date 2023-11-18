@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Receitas</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="index.html">Cadastrar Despesa</a>
+            <li><a href="cadastrar_receita.html" class="active">Cadastrar Receita</a>
+            <li><a href="#">Cadastrar Categoria</a>
+            <li><a href="#">Cadastrar Subcategoria</a> 
+        </ul>
+    </header>
+
+    <div class="container">
+        <h1>Cadastro de Receitas</h1>
+        <form id="formDespesa">
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" required>
+            
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" required>
+            
+            <label for="categoria">Categoria:</label>
+            <div class="button-container">
+                <select id="categoria" name="categoria">
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="saude">Saúde</option>
+                    <option value="educacao">Educação</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <button type="button" class="green-button">Criar Categoria</button>
+            </div>
+
+
+            <label for="subcategoria">Subcategoria:</label>
+            <div class="button-container">
+                <select id="categoria" name="categoria">
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="saude">Saúde</option>
+                    <option value="educacao">Educação</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <button type="button" class="green-button">Criar Subcategoria</button>
+            </div>
+
+            <button type="submit">Cadastrar Receita</button>
+        </form>
+    </div>
+    <a class="listar" href="/src/main/webapp/listagem_receita.html">Listagem de Receitas</a>
+</body>
+</html>
