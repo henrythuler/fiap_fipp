@@ -3,6 +3,7 @@ package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
 import com.fipp.models.entities.Categoria;
+import com.fipp.models.entities.Subcategoria;
 import com.fipp.models.enums.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,9 +16,9 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 
     @Override
-    public List<Categoria> getAll(){
+    public ArrayList<Categoria> getAll(){
 
-        List<Categoria> categorias = new ArrayList<>();
+        ArrayList<Categoria> categorias = new ArrayList<>();
 
         try{
             conexao = ConnectionManager.getInstance().getConnection();
@@ -121,6 +122,35 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         }
 
         return response;
+    }
+
+
+    @Override
+    public boolean update(Categoria categoria){
+        try{
+            conexao = ConnectionManager.getInstance().getConnection();
+            pstmt = conexao.prepareStatement("UPDATE T_FPP_CATEGORIA cd_usuario = ?, id_tipo = ?, ds_descricao = ? WHERE cd_categoria = ?");
+            pstmt.setInt(1, categoria.getIdUsuario());
+            pstmt.setInt(2, categoria.getTipo().getId());
+            pstmt.setString(3, categoria.getDescricao());
+            pstmt.setInt(4, categoria.getId());
+
+            pstmt.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }finally{
+            try{
+                pstmt.close();
+                conexao.close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
 }

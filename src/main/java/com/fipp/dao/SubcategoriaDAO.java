@@ -1,12 +1,13 @@
 package com.fipp.dao;
 
-import com.fipp.models.entities.Subcategoria;
 
+import com.fipp.models.entities.Subcategoria;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface SubcategoriaDAO {
 
-    List<Subcategoria> getAll();
+    ArrayList<Subcategoria> getAll();
 
     Subcategoria getById(int id);
 
