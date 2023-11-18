@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.fipp.models.entities.Subcategoria;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/subcategoria")
 public class SubcategoriaController extends HttpServlet {
@@ -40,16 +41,19 @@ public class SubcategoriaController extends HttpServlet {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        int categoriaId = Integer.parseInt(req.getParameter("categoriaId"));
-        int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
-        Tipo tipo = Tipo.valueById(Integer.parseInt(req.getParameter("tipo")));
-        String descricao = req.getParameter("descricao");
 
-        Subcategoria subcategoria = new Subcategoria(id,categoriaId,idUsuario,tipo,descricao);
+        HttpSession session = req.getSession();
+
+        var subcategoria = new Subcategoria(
+                Integer.parseInt(req.getParameter("id")),
+                Integer.parseInt(req.getParameter("id")),
+                Integer.parseInt(req.getParameter("id")),
+                Tipo.valueById(Integer.parseInt(req.getParameter("tipo"))),
+                req.getParameter("descricao")
+        );
 
         boolean success;
-        if (id == 0)
+        if (subcategoria.getId() == 0)
             success = insert(subcategoria) > 0;
         else
             success = update(subcategoria);

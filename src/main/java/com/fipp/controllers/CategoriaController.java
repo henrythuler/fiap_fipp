@@ -8,6 +8,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,15 +42,18 @@ public class CategoriaController extends HttpServlet {
 
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        int idUsuario = Integer.parseInt(req.getParameter("idUsuario"));
-        Tipo tipo = Tipo.valueById(Integer.parseInt(req.getParameter("tipo")));
-        String descricao = req.getParameter("descricao");
 
-        Categoria categoria = new Categoria(id,idUsuario,tipo,descricao);
+        HttpSession session = req.getSession();
+
+        var categoria = new Categoria(
+                Integer.parseInt(req.getParameter("id")),
+                Integer.parseInt(session.getAttribute("idUsuario").toString()),
+                Tipo.valueById(Integer.parseInt(req.getParameter("tipo"))),
+                req.getParameter("descricao")
+        );
 
         boolean success;
-        if (id == 0)
+        if (categoria.getId() == 0)
             success = insert(categoria) > 0;
         else
             success = update(categoria);
