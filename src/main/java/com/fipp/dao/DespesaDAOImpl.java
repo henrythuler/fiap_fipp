@@ -15,9 +15,9 @@ public class DespesaDAOImpl implements DespesaDAO {
 
 
     @Override
-    public List<Despesa> getAll(){
+    public ArrayList<Despesa> getAll(){
 
-        List<Despesa> despesas = new ArrayList<>();
+        ArrayList<Despesa> despesas = new ArrayList<>();
 
         try{
             conexao = ConnectionManager.getInstance().getConnection();
