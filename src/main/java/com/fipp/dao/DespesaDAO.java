@@ -1,9 +1,7 @@
 package com.fipp.dao;
 
 import com.fipp.models.entities.Despesa;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public interface DespesaDAO {
 
@@ -14,4 +12,5 @@ public interface DespesaDAO {
     int inserir(Despesa despesa);
 
     boolean update(Despesa despesa);
+
 }

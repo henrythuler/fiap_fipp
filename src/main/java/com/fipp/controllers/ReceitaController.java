@@ -1,28 +1,25 @@
 package com.fipp.controllers;
 
-import com.fipp.dao.CategoriaDAOImpl;
-import com.fipp.dao.ReceitaDAOImpl;
-import com.fipp.dao.SubcategoriaDAOImpl;
+import com.fipp.dao.*;
 import com.fipp.models.entities.Receita;
-import com.fipp.models.enums.Metodo;
-import com.fipp.models.enums.Status;
+import com.fipp.models.enums.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @WebServlet("/receita")
 public class ReceitaController extends HttpServlet {
 
-
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
 
         if (id == 0) {
@@ -37,12 +34,18 @@ public class ReceitaController extends HttpServlet {
 
 
     public Receita getById(int id){
+
         return new ReceitaDAOImpl().getById(id);
     }
 
 
     public ArrayList<Receita> getAll(){
-        return new ReceitaDAOImpl().getAll(); //TO DO: Sorted by [descricao]
+
+        ArrayList<Receita> receitas = new ReceitaDAOImpl().getAll();
+
+        receitas.sort(Comparator.comparing(Receita::getData));
+
+        return receitas;
     }
 
 
@@ -52,7 +55,7 @@ public class ReceitaController extends HttpServlet {
 
         var receita = new Receita(
                 Integer.parseInt(req.getParameter("id")),
-                Integer.parseInt(session.getAttribute("idUsuario").toString()),
+                Integer.parseInt(session.getAttribute("idUsuario").toString()), //TO DO: Check if it works
                 Date.valueOf(req.getParameter("data")),
                 new BigDecimal(req.getParameter("valor")),
                 Metodo.valueById(Integer.parseInt(req.getParameter("metodo"))),
@@ -63,27 +66,28 @@ public class ReceitaController extends HttpServlet {
                 req.getParameter("pagador")
         );
 
-        boolean success;
-        if (receita.getId() == 0)
-            success = insert(receita) > 0;
-        else
-            success = update(receita);
+        boolean success = receita.getId() == 0 ? insert(receita) : update(receita);
 
-        req.getRequestDispatcher("receitas.jsp").forward(req, res);
+        if (success)
+            req.getRequestDispatcher("receitas.jsp").forward(req, res);
+        else
+            req.getRequestDispatcher("receitaError.jsp").forward(req, res);
     }
 
 
-    public int insert(Receita receita){
+    public boolean insert(Receita receita){
+
         var existsInDataBase = new ReceitaDAOImpl().getById(receita.getId()) != null;
 
         if (!existsInDataBase)
-            return new ReceitaDAOImpl().inserir(receita);
-        else
-            return 0;
+            return new ReceitaDAOImpl().inserir(receita) > 0;
+
+        return false;
     }
 
 
     public boolean update(Receita receita){
+
         var existsInDataBase = new ReceitaDAOImpl().getById(receita.getId()) != null;
 
         if (existsInDataBase)

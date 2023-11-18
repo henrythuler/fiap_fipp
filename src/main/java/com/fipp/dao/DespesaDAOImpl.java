@@ -1,15 +1,17 @@
 package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
-import com.fipp.models.entities.Categoria;
 import com.fipp.models.entities.Despesa;
 import com.fipp.models.enums.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DespesaDAOImpl implements DespesaDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(DespesaDAOImpl.class);
     private Connection conexao;
     PreparedStatement pstmt = null;
 
@@ -40,16 +42,14 @@ public class DespesaDAOImpl implements DespesaDAO {
                         );
                 despesas.add(despesa);
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -83,16 +83,14 @@ public class DespesaDAOImpl implements DespesaDAO {
                                 result.getString(10)
                         );
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -127,18 +125,14 @@ public class DespesaDAOImpl implements DespesaDAO {
             pstmt.setString(10, despesa.getBeneficiario());
 
             response = pstmt.executeUpdate();
-
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -167,16 +161,14 @@ public class DespesaDAOImpl implements DespesaDAO {
 
             pstmt.executeUpdate();
             return true;
-        }catch(SQLException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 

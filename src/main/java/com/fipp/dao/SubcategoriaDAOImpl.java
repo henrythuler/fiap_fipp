@@ -3,15 +3,18 @@ package com.fipp.dao;
 import com.fipp.jdbc.ConnectionManager;
 import com.fipp.models.entities.Subcategoria;
 import com.fipp.models.enums.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubcategoriaDAOImpl implements SubcategoriaDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(SubcategoriaDAOImpl.class);
     private Connection conexao;
     PreparedStatement pstmt = null;
 
@@ -37,22 +40,17 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
                         );
                 subcategorias.add(subcategoria);
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally
-        {
-            try
-            {
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }
-            catch (SQLException e)
-            {
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
+
         return subcategorias;
     }
 
@@ -79,16 +77,14 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
                             result.getString(5)
                         );
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -97,9 +93,9 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
 
 
     @Override
-    public List<Subcategoria> getByCategoriaId(int id){
+    public ArrayList<Subcategoria> getByCategoriaId(int id){
 
-        List<Subcategoria> subcategorias = new ArrayList<>();
+        ArrayList<Subcategoria> subcategorias = new ArrayList<>();
 
         try{
             conexao = ConnectionManager.getInstance().getConnection();
@@ -119,16 +115,14 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
                         );
                 subcategorias.add(subcategoria);
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -154,16 +148,14 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
             pstmt.setString(5, subcategoria.getDescricao());
 
             response = pstmt.executeUpdate();
-        }catch(SQLException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -183,16 +175,14 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
 
             pstmt.executeUpdate();
             return true;
-        }catch(SQLException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 

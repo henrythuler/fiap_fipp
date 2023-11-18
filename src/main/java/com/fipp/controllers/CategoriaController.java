@@ -9,15 +9,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @WebServlet("/categoria")
 public class CategoriaController extends HttpServlet {
 
-
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
 
         if (id == 0) {
@@ -37,7 +37,12 @@ public class CategoriaController extends HttpServlet {
 
 
     public ArrayList<Categoria> getAll(){
-        return new CategoriaDAOImpl().getAll(); //TO DO: Sorted by [descricao]
+
+        ArrayList<Categoria> categorias = new CategoriaDAOImpl().getAll();
+
+        categorias.sort(Comparator.comparing(Categoria::getDescricao, String.CASE_INSENSITIVE_ORDER));
+
+        return categorias;
     }
 
 
@@ -47,32 +52,33 @@ public class CategoriaController extends HttpServlet {
 
         var categoria = new Categoria(
                 Integer.parseInt(req.getParameter("id")),
-                Integer.parseInt(session.getAttribute("idUsuario").toString()),
-                Tipo.valueById(Integer.parseInt(req.getParameter("tipo"))),
+                Integer.parseInt(session.getAttribute("idUsuario").toString()), //TO DO: Check if it works
+                Tipo.valueOf(req.getParameter("tipo")),
                 req.getParameter("descricao")
         );
 
-        boolean success;
-        if (categoria.getId() == 0)
-            success = insert(categoria) > 0;
-        else
-            success = update(categoria);
+        boolean success = categoria.getId() == 0 ? insert(categoria) : update(categoria);
 
-        req.getRequestDispatcher("subcategorias.jsp").forward(req, res);
+        if (success)
+            req.getRequestDispatcher("subcategorias.jsp").forward(req, res);
+        else
+            req.getRequestDispatcher("subcategoriaError.jsp").forward(req, res);
     }
 
 
-    public int insert(Categoria categoria){
+    public boolean insert(Categoria categoria){
+
         var existsInDataBase = new CategoriaDAOImpl().getById(categoria.getId()) != null;
 
         if (!existsInDataBase)
-            return new CategoriaDAOImpl().inserir(categoria);
-        else
-            return 0;
+            return new CategoriaDAOImpl().inserir(categoria) > 0;
+
+        return false;
     }
 
 
     public boolean update(Categoria categoria){
+
         var existsInDataBase = new CategoriaDAOImpl().getById(categoria.getId()) != null;
 
         if (existsInDataBase)

@@ -3,14 +3,15 @@ package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
 import com.fipp.models.entities.Categoria;
-import com.fipp.models.entities.Subcategoria;
 import com.fipp.models.enums.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoriaDAOImpl.class);
     private Connection conexao;
     PreparedStatement pstmt = null;
 
@@ -35,17 +36,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                         );
                 categorias.add(categoria);
             }
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -74,16 +72,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
                         );
             }
 
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -108,16 +104,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
             pstmt.setString(4, categoria.getDescricao());
 
             response = pstmt.executeUpdate();
-        }catch(SQLException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally {
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
             try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
@@ -137,16 +131,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
             pstmt.executeUpdate();
             return true;
-        }catch(SQLException e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }finally{
-            try{
+        } catch (SQLException e) {
+            logger.error("Erro de SQL: ", e);
+        } finally {
+            try {
                 pstmt.close();
                 conexao.close();
-            }catch (SQLException e){
-                System.err.println(e.getMessage());
-                e.printStackTrace();
+            } catch (SQLException e) {
+                logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
