@@ -1,6 +1,7 @@
 package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
+import com.fipp.models.entities.Despesa;
 import com.fipp.models.entities.Receita;
 import com.fipp.models.enums.*;
 import java.sql.*;
@@ -14,9 +15,9 @@ public class ReceitaDAOImpl implements ReceitaDAO {
 
 
     @Override
-    public List<Receita> getAll(){
+    public ArrayList<Receita> getAll(){
 
-        List<Receita> receitas = new ArrayList<>();
+        ArrayList<Receita> receitas = new ArrayList<>();
 
         try{
             conexao = ConnectionManager.getInstance().getConnection();
@@ -144,6 +145,45 @@ public class ReceitaDAOImpl implements ReceitaDAO {
         }
 
         return response;
+    }
+
+
+    @Override
+    public boolean update(Receita receita){
+        try{
+            conexao = ConnectionManager.getInstance().getConnection();
+            pstmt = conexao.prepareStatement("UPDATE T_FPP_RECEITA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESCRICAO = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_PAGADOR = ? WHERE CD_RECEITA = ?");
+            pstmt.setInt(1, receita.getIdUsuario());
+            pstmt.setDate(2, receita.getData());
+            pstmt.setBigDecimal(3, receita.getValor());
+            pstmt.setInt(4, receita.getMetodo().getId());
+            pstmt.setString(5, receita.getDescricao());
+            pstmt.setInt(6, receita.getCategoria().getId());
+            if(receita.getSubcategoria() != null)
+                pstmt.setInt(7, receita.getSubcategoria().getId());
+            else
+                pstmt.setNull(7, Types.NULL);
+
+            pstmt.setInt(8, receita.getStatus().getId());
+            pstmt.setString(9, receita.getPagador());
+            pstmt.setInt(10, receita.getId());
+
+            pstmt.executeUpdate();
+            return true;
+        }catch(SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }finally{
+            try{
+                pstmt.close();
+                conexao.close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        return false;
     }
 
 }
