@@ -12,11 +12,11 @@
         <div class="logo">
             <img src="images/logo.png" alt="Logo">
         </div>
-        <h2>FIPP</h2>
         <ul>
             <li><a href="index.html">Cadastrar Despesa</a>
             <li><a href="cadastrar_receita.html">Cadastrar Receita</a>
             <li><a href="#">Cadastrar Categoria</a> 
+            <li><a href="#">Cadastrar Subcategoria</a> 
         </ul>
     </header>
 
@@ -25,15 +25,21 @@
         <h1>Listagem Despesa</h1>
         <table class="table table-striped">
             <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Condição</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Categoria</th>
+                <th>Subcategoria</th>
             </tr>
             <c:forEach var="p" items="${despesas}">
                 <tr>
                     <td>${p.getName()}</td>
                     <td><fmt:formatNumber value="${p.getValue()}" type="currency" /></td>
-                    <td>${p.getCondicao()}</td>
+                    <td>${p.getCategoria()}</td>
+                    <td>${p.getSubcategoria()}</td>
+                    <td style="text-align: right;">
+                        <button type="button" class="red-button"><img src="images/delete_image.png" alt="Delete Icon" width="20" height="20"/></button>
+                        <button type="button" class="edit-button"><img src="images/edit_image.png" alt="Delete Icon" width="20" height="20"/></button>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
