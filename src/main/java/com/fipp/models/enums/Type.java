@@ -2,7 +2,7 @@ package com.fipp.models.enums;
 
 public enum Type {
     EXPENSE(0, "Despesa"),
-    INCOME(1, "income");
+    INCOME(1, "Receita");
 
 
     private final int id;
