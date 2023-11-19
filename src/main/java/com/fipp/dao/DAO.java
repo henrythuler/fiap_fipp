@@ -10,6 +10,6 @@ public interface DAO<T>{
 
     int inserir(T object);
 
-    boolean update(T categoria);
+    boolean update(T object);
 
 }
