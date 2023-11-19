@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fipp</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body>
+
+<!-- Mock iPhone -->
+<section class="__mockup__iphone__navbar">
+
+    <!-- Screen -->
+    <section class="__screen">
+
+        <header class="grid grid-cols-[25%,auto,25%] my-3 mx-2 h-[20px]">
+            <a href="categories.html" class="flex">
+                <i class="material-symbols-outlined text-blue-600 text-sm">arrow_back_ios</i>
+                <span class="text-sm text-blue-600">Voltar</span>
+            </a>
+            <h2 class="font-bold text-black  flex justify-center items-center">Adicionar Categoria</h2>
+        </header>
+
+        <main class="flex flex-col h-[580px] px-2 overflow-y-scroll __hide__scroll__bar">
+
+            <form name="category-form" id="income-form" method="post" action="" class="flex flex-col box-border gap-4 mt-4" >
+
+                <div class="flex flex-col justify-center">
+                    <label for="type" class="text-gray-300">Tipo</label>
+                    <input list="type" name="type" class="placeholder-gray-600 rounded-md px-2 py-3 w-full  bg-gray-300" placeholder="Ex: Despesa">
+                    <datalist id="type">
+                        <option value="Despesa">
+                        <option value="Receita">
+                    </datalist>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <label for="description" class="text-gray-300">Descrição</label>
+                    <input type="text" id="description" name="description" class="placeholder-gray-600 px-2 rounded-md py-3 w-full  bg-gray-300" required minlength="5" maxlength="15" placeholder="Ex: Alimentação">
+                </div>
+
+            </form>
+            <a class="material-symbols-outlined self-end bg-green-600 p-4 w-46 h-46 mr-6 mt-12 mb-8 rounded-full text-white text-center flex items-center justify-center" href="./categories.html">check</a>
+
+        </main>
+
+
+    </section>
+
+</section>
+
+</body>
+
+</html>
