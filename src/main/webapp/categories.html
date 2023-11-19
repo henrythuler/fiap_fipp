@@ -33,50 +33,84 @@
     <!-- Screen -->
     <section class="__screen">
 
-        <main class="flex flex-col h-[570px] px-5">
+        <main class="flex flex-col h-[570px] px-5 overflow-y-scroll __hide__scroll__bar">
 
             <div class="flex justify-center pt-[10%]">
                 <img src="./images/logo.png" alt="Logo Alucar" width="35%">
             </div>
 
 
-            <h1 class="text-3xl text-center mt-16">Categorias</h1>
-            <!--
-               Implementar a listagem de categorias e subcategorias
-               ****************************************************
-             -->
-            <a class="bg-green-600 p-4 w-40 h-10 mt-12 text-white text-center flex items-center justify-center self-center" href="./category-form.html">Adicionar Categoria</a>
-            <a class="bg-green-600 p-4 w-40 h-10 mt-12 text-white text-center flex items-center justify-center self-center" href="./subcategory-form.html">Adicionar Subcategoria</a>
+            <table class="w-full mt-8">
+                <thead>
+                <tr class="leading-[2rem]">
+                    <th colspan="2" class="px-1 bg-gray-200">Receitas</th>
+                </tr>
+                </thead>
 
+                <tbody class="divide-y divide-gray-700">
+                <tr class="text-green-600 leading-[3rem]">
+                    <td class="px-1">Salário</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
 
+                <tr class="text-green-600 leading-[3rem]">
+                    <td class="px-1">Freelance</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
+                </tbody>
 
+                <thead>
+                <tr class="leading-[2rem]">
+                    <th colspan="2" class="px-1 bg-gray-200">Despesas</th>
+                </tr>
+                </thead>
+
+                <tbody class="divide-y divide-gray-700">
+
+                <tr class="text-red-500 leading-[3rem]">
+                    <td class="px-1">Moradia</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
+
+                <tr class="text-red-500 leading-[3rem]">
+                    <td class="px-1">Compras online</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
+
+                <tr class="text-red-500 leading-[3rem]">
+                    <td class="px-1">Cartão de Crédito</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
+
+                <tr class="text-red-500 leading-[3rem]">
+                    <td class="px-1">Veículo</td>
+                    <td><i class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</i></td>
+                </tr>
+
+                </tbody>
+            </table>
+            <a class="material-symbols-outlined self-end bg-green-600 p-4 w-46 h-46 mr-6 mt-12 mb-8 rounded-full text-white text-center flex items-center justify-center" href="./index.html">add</a>
 
 
         </main>
 
-        <footer class="z-10 bottom-0 grid grid-cols-3 py-4 w-full bg-transparent ml-2">
+        <footer class="z-10 bottom-0 grid grid-cols-4 py-4 w-full bg-transparent ml-2">
             <div class="footer__item flex justify-center items-center w-20">
                 <a href="./index.html">
                     <span class="material-symbols-outlined scale-[1.4]">home</span>
                 </a>
             </div>
 
-            <div class="footer__item -mt-16 h-20 bg-blue-500 flex justify-center items-center rounded-full w-20">
-                <input type="checkbox" id="menu" class="hidden">
-                <label for="menu">
-                    <span class="material-symbols-outlined scale-[1.4] cursor-pointer">add</span>
-                </label>
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="./income-form.html">
+                    <span class="material-symbols-outlined scale-[1.4]">trending_up</span>
+                </a>
+            </div>
 
-                <div id="footer_menu" class="-mt-60 absolute hidden flex-col items-center gap-4 w-96">
-                    <div class="w-2/5 h-12 flex bg-blue-500 items-center justify-center rounded-full">
-                        <a href="./expense-form.html" class="text-gray-100">Despesa</a>
-                    </div>
-
-                    <div class="w-2/5 h-12 flex bg-blue-500 items-center justify-center rounded-full">
-                        <a href="income-form.html" class="text-gray-100">Receita</a>
-                    </div>
-
-                </div>
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="./expense-form.html">
+                    <span class="material-symbols-outlined scale-[1.4]">trending_down</span>
+                </a>
             </div>
 
             <div class="footer__item flex justify-center items-center w-20">
@@ -84,8 +118,6 @@
                     <span class="material-symbols-outlined scale-[1.4]">category</span>
                 </a>
             </div>
-
-
 
         </footer>
 
