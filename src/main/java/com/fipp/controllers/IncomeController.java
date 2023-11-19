@@ -27,7 +27,7 @@ public class IncomeController extends HttpServlet {
         }
         else {
             req.setAttribute("income", dao.getById(id));
-            req.getRequestDispatcher("incomeForm.jsp").forward(req, res);
+            req.getRequestDispatcher("income-form.jsp").forward(req, res);
         }
     }
 

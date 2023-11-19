@@ -27,7 +27,7 @@ public class ExpenseController extends HttpServlet {
         }
         else {
             req.setAttribute("expense", dao.getById(id));
-            req.getRequestDispatcher("expenseForm.jsp").forward(req, res);
+            req.getRequestDispatcher("expense-form.jsp").forward(req, res);
         }
     }
 

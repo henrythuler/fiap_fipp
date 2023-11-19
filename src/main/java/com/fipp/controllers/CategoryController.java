@@ -25,7 +25,7 @@ public class CategoryController extends HttpServlet {
         }
         else {
             req.setAttribute("category", dao.getById(id));
-            req.getRequestDispatcher("categoryForm.jsp").forward(req, res);
+            req.getRequestDispatcher("category-form.jsp").forward(req, res);
         }
     }
 

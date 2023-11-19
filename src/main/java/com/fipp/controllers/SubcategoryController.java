@@ -29,7 +29,7 @@ public class SubcategoryController extends HttpServlet {
             req.getRequestDispatcher("subcategoryForm.jsp").forward(req, res);
         } else {
             req.setAttribute("subcategory", dao.getById(id));
-            req.getRequestDispatcher("subcategoryForm.jsp").forward(req, res);
+            req.getRequestDispatcher("subcategory-form.jsp").forward(req, res);
         }
     }
 
