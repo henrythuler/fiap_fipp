@@ -8,7 +8,7 @@ public interface DAO<T>{
 
     T getById(int id);
 
-    int inserir(T object);
+    boolean inserir(T object);
 
     boolean update(T object);
 

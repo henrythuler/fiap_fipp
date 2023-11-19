@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
 
 @WebServlet("/despesa")
 public class DespesaController extends HttpServlet {
@@ -21,33 +19,17 @@ public class DespesaController extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
+        var dao = new DespesaDAOImpl();
 
         if (id == 0) {
-            req.setAttribute("despesas", getAll());
+            req.setAttribute("despesas", dao.getAll());
             req.getRequestDispatcher("despesas.jsp").forward(req, res);
         }
         else {
-            req.setAttribute("despesa", getById(id));
+            req.setAttribute("despesa", dao.getById(id));
             req.getRequestDispatcher("despesaForm.jsp").forward(req, res);
         }
     }
-
-
-    public Despesa getById(int id){
-
-        return new DespesaDAOImpl().getById(id);
-    }
-
-
-    public ArrayList<Despesa> getAll(){
-
-        ArrayList<Despesa> despesas = new DespesaDAOImpl().getAll();
-
-        despesas.sort(Comparator.comparing(Despesa::getData));
-
-        return despesas;
-    }
-
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -66,34 +48,13 @@ public class DespesaController extends HttpServlet {
                 req.getParameter("beneficiario")
         );
 
-        boolean success = despesa.getId() == 0 ? insert(despesa) : update(despesa);
+        var dao = new DespesaDAOImpl();
+        boolean success = despesa.getId() == 0 ? dao.inserir(despesa) : dao.update(despesa);
 
         if (success)
             req.getRequestDispatcher("despesas.jsp").forward(req, res);
         else
             req.getRequestDispatcher("despesaError.jsp").forward(req, res);
-    }
-
-
-    public boolean insert(Despesa despesa){
-
-        var existsInDataBase = new DespesaDAOImpl().getById(despesa.getId()) != null;
-
-        if (!existsInDataBase)
-            return new DespesaDAOImpl().inserir(despesa) > 0;
-
-        return false;
-    }
-
-
-    public boolean update(Despesa despesa){
-
-        var existsInDataBase = new DespesaDAOImpl().getById(despesa.getId()) != null;
-
-        if (existsInDataBase)
-            return new DespesaDAOImpl().update(despesa);
-
-        return false;
     }
 
 }

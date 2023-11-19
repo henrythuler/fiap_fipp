@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
 
 @WebServlet("/receita")
 public class ReceitaController extends HttpServlet {
@@ -21,33 +19,17 @@ public class ReceitaController extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
+        var dao = new ReceitaDAOImpl();
 
         if (id == 0) {
-            req.setAttribute("receitas", getAll());
+            req.setAttribute("receitas", dao.getAll());
             req.getRequestDispatcher("receitas.jsp").forward(req, res);
         }
         else {
-            req.setAttribute("receita", getById(id));
+            req.setAttribute("receita", dao.getById(id));
             req.getRequestDispatcher("receitaForm.jsp").forward(req, res);
         }
     }
-
-
-    public Receita getById(int id){
-
-        return new ReceitaDAOImpl().getById(id);
-    }
-
-
-    public ArrayList<Receita> getAll(){
-
-        ArrayList<Receita> receitas = new ReceitaDAOImpl().getAll();
-
-        receitas.sort(Comparator.comparing(Receita::getData));
-
-        return receitas;
-    }
-
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -66,34 +48,13 @@ public class ReceitaController extends HttpServlet {
                 req.getParameter("pagador")
         );
 
-        boolean success = receita.getId() == 0 ? insert(receita) : update(receita);
+        var dao = new ReceitaDAOImpl();
+        boolean success = receita.getId() == 0 ? dao.inserir(receita) : dao.update(receita);
 
         if (success)
             req.getRequestDispatcher("receitas.jsp").forward(req, res);
         else
             req.getRequestDispatcher("receitaError.jsp").forward(req, res);
-    }
-
-
-    public boolean insert(Receita receita){
-
-        var existsInDataBase = new ReceitaDAOImpl().getById(receita.getId()) != null;
-
-        if (!existsInDataBase)
-            return new ReceitaDAOImpl().inserir(receita) > 0;
-
-        return false;
-    }
-
-
-    public boolean update(Receita receita){
-
-        var existsInDataBase = new ReceitaDAOImpl().getById(receita.getId()) != null;
-
-        if (existsInDataBase)
-            return new ReceitaDAOImpl().update(receita);
-
-        return false;
     }
 
 }

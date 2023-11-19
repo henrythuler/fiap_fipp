@@ -5,7 +5,6 @@ import com.fipp.models.entities.Despesa;
 import com.fipp.models.enums.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -24,6 +23,7 @@ public class DespesaDAOImpl implements DAO<Despesa> {
         try{
             conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_DESPESA ORDER BY CD_DESPESA");
+
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
@@ -66,6 +66,7 @@ public class DespesaDAOImpl implements DAO<Despesa> {
             conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_DESPESA WHERE CD_DESPESA = ?");
             pstmt.setInt(1, id);
+
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
@@ -99,76 +100,79 @@ public class DespesaDAOImpl implements DAO<Despesa> {
 
 
     @Override
-    public int inserir(Despesa despesa){
+    public boolean inserir(Despesa despesa){
 
-        int response = 0;
+        var existsInDataBase = new DespesaDAOImpl().getById(despesa.getId()) != null;
 
-        try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("INSERT INTO T_FPP_DESPESA" +
-                    "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-            pstmt.setInt(1, despesa.getId());
-            pstmt.setInt(2, despesa.getIdUsuario());
-            pstmt.setDate(3, despesa.getData());
-            pstmt.setBigDecimal(4, despesa.getValor());
-            pstmt.setInt(5, despesa.getMetodo().getId());
-            pstmt.setString(6, despesa.getDescricao());
-            pstmt.setInt(7, despesa.getCategoria().getId());
-            if(despesa.getSubcategoria() != null)
-                pstmt.setInt(8, despesa.getSubcategoria().getId());
-            else
-                pstmt.setNull(8, Types.NULL);
-
-            pstmt.setInt(9, despesa.getStatus().getId());
-            pstmt.setString(10, despesa.getBeneficiario());
-
-            response = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Erro de SQL: ", e);
-        } finally {
+        if (!existsInDataBase) {
             try {
-                pstmt.close();
-                conexao.close();
+                conexao = ConnectionManager.getInstance().getConnection();
+                pstmt = conexao.prepareStatement("INSERT INTO T_FPP_DESPESA" +
+                        "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                pstmt.setInt(1, despesa.getId());
+                pstmt.setInt(2, despesa.getIdUsuario());
+                pstmt.setDate(3, despesa.getData());
+                pstmt.setBigDecimal(4, despesa.getValor());
+                pstmt.setInt(5, despesa.getMetodo().getId());
+                pstmt.setString(6, despesa.getDescricao());
+                pstmt.setInt(7, despesa.getCategoria().getId());
+                if (despesa.getSubcategoria() != null)
+                    pstmt.setInt(8, despesa.getSubcategoria().getId());
+                else
+                    pstmt.setNull(8, Types.NULL);
+                pstmt.setInt(9, despesa.getStatus().getId());
+                pstmt.setString(10, despesa.getBeneficiario());
+
+                return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
-                logger.error("Erro ao fechar recursos: ", e);
+                logger.error("Erro de SQL: ", e);
+            } finally {
+                try {
+                    pstmt.close();
+                    conexao.close();
+                } catch (SQLException e) {
+                    logger.error("Erro ao fechar recursos: ", e);
+                }
             }
         }
 
-        return response;
+        return false;
     }
 
     @Override
     public boolean update(Despesa despesa){
-        try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("UPDATE T_FPP_DESPESA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESCRICAO = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_BENEFICIARIO = ? WHERE CD_DESPESA = ?");
-            pstmt.setInt(1, despesa.getIdUsuario());
-            pstmt.setDate(2, despesa.getData());
-            pstmt.setBigDecimal(3, despesa.getValor());
-            pstmt.setInt(4, despesa.getMetodo().getId());
-            pstmt.setString(5, despesa.getDescricao());
-            pstmt.setInt(6, despesa.getCategoria().getId());
-            if(despesa.getSubcategoria() != null)
-                pstmt.setInt(7, despesa.getSubcategoria().getId());
-            else
-                pstmt.setNull(7, Types.NULL);
 
-            pstmt.setInt(8, despesa.getStatus().getId());
-            pstmt.setString(9, despesa.getBeneficiario());
-            pstmt.setInt(10, despesa.getId());
+        var existsInDataBase = new DespesaDAOImpl().getById(despesa.getId()) != null;
 
-            pstmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            logger.error("Erro de SQL: ", e);
-        } finally {
+        if (existsInDataBase) {
             try {
-                pstmt.close();
-                conexao.close();
+                conexao = ConnectionManager.getInstance().getConnection();
+                pstmt = conexao.prepareStatement("UPDATE T_FPP_DESPESA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESCRICAO = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_BENEFICIARIO = ? WHERE CD_DESPESA = ?");
+                pstmt.setInt(1, despesa.getIdUsuario());
+                pstmt.setDate(2, despesa.getData());
+                pstmt.setBigDecimal(3, despesa.getValor());
+                pstmt.setInt(4, despesa.getMetodo().getId());
+                pstmt.setString(5, despesa.getDescricao());
+                pstmt.setInt(6, despesa.getCategoria().getId());
+                if (despesa.getSubcategoria() != null)
+                    pstmt.setInt(7, despesa.getSubcategoria().getId());
+                else
+                    pstmt.setNull(7, Types.NULL);
+                pstmt.setInt(8, despesa.getStatus().getId());
+                pstmt.setString(9, despesa.getBeneficiario());
+                pstmt.setInt(10, despesa.getId());
+
+                return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
-                logger.error("Erro ao fechar recursos: ", e);
+                logger.error("Erro de SQL: ", e);
+            } finally {
+                try {
+                    pstmt.close();
+                    conexao.close();
+                } catch (SQLException e) {
+                    logger.error("Erro ao fechar recursos: ", e);
+                }
             }
         }
 

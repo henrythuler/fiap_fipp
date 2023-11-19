@@ -1,6 +1,5 @@
 package com.fipp.dao;
 
-
 import com.fipp.jdbc.ConnectionManager;
 import com.fipp.models.entities.Categoria;
 import com.fipp.models.enums.*;
@@ -88,57 +87,66 @@ public class CategoriaDAOImpl implements DAO<Categoria> {
 
 
     @Override
-    public int inserir(Categoria categoria){
+    public boolean inserir(Categoria categoria){
 
-        int response = 0;
+        var existsInDataBase = getById(categoria.getId()) != null;
 
-        try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
-                    "(CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
-                    "VALUES (?, ?, ?, ?)");
+        if (!existsInDataBase) {
+            try{
+                conexao = ConnectionManager.getInstance().getConnection();
 
-            pstmt.setInt(1, categoria.getId());
-            pstmt.setInt(2, categoria.getIdUsuario());
-            pstmt.setInt(3, categoria.getTipo().getId());
-            pstmt.setString(4, categoria.getDescricao());
+                pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
+                        "(CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
+                        "VALUES (?, ?, ?, ?)");
 
-            response = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Erro de SQL: ", e);
-        } finally {
-            try {
-                pstmt.close();
-                conexao.close();
+                pstmt.setInt(1, categoria.getId());
+                pstmt.setInt(2, categoria.getIdUsuario());
+                pstmt.setInt(3, categoria.getTipo().getId());
+                pstmt.setString(4, categoria.getDescricao());
+
+                return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
-                logger.error("Erro ao fechar recursos: ", e);
+                logger.error("Erro de SQL: ", e);
+            } finally {
+                try {
+                    pstmt.close();
+                    conexao.close();
+                } catch (SQLException e) {
+                    logger.error("Erro ao fechar recursos: ", e);
+                }
             }
         }
 
-        return response;
+        return false;
     }
 
 
     @Override
     public boolean update(Categoria categoria){
-        try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("UPDATE T_FPP_CATEGORIA cd_usuario = ?, id_tipo = ?, ds_descricao = ? WHERE cd_categoria = ?");
-            pstmt.setInt(1, categoria.getIdUsuario());
-            pstmt.setInt(2, categoria.getTipo().getId());
-            pstmt.setString(3, categoria.getDescricao());
-            pstmt.setInt(4, categoria.getId());
 
-            pstmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            logger.error("Erro de SQL: ", e);
-        } finally {
+        var existsInDataBase = new CategoriaDAOImpl().getById(categoria.getId()) != null;
+
+        if (existsInDataBase) {
             try {
-                pstmt.close();
-                conexao.close();
+                conexao = ConnectionManager.getInstance().getConnection();
+
+                pstmt = conexao.prepareStatement("UPDATE T_FPP_CATEGORIA cd_usuario = ?, id_tipo = ?, ds_descricao = ? WHERE cd_categoria = ?");
+
+                pstmt.setInt(1, categoria.getIdUsuario());
+                pstmt.setInt(2, categoria.getTipo().getId());
+                pstmt.setString(3, categoria.getDescricao());
+                pstmt.setInt(4, categoria.getId());
+
+                return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
-                logger.error("Erro ao fechar recursos: ", e);
+                logger.error("Erro de SQL: ", e);
+            } finally {
+                try {
+                    pstmt.close();
+                    conexao.close();
+                } catch (SQLException e) {
+                    logger.error("Erro ao fechar recursos: ", e);
+                }
             }
         }
 

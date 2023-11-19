@@ -5,11 +5,7 @@ import com.fipp.models.entities.Subcategoria;
 import com.fipp.models.enums.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class SubcategoriaDAOImpl implements SubcategoriaDAO {
@@ -27,6 +23,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
         try{
             conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA ORDER BY CD_SUBCATEGORIA");
+
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
@@ -64,8 +61,8 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
             conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA WHERE CD_SUBCATEGORIA = ?");
             pstmt.setInt(1, id);
-            ResultSet result = pstmt.executeQuery();
 
+            ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
                 subcategoria = new Subcategoria
@@ -101,8 +98,8 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
             conexao = ConnectionManager.getInstance().getConnection();
             pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_SUBCATEGORIA WHERE CD_CATEGORIA = ? ORDER BY CD_CATEGORIA");
             pstmt.setInt(1, id);
-            ResultSet result = pstmt.executeQuery();
 
+            ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
                 var subcategoria = new Subcategoria
@@ -131,36 +128,37 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
 
 
     @Override
-    public int inserir(Subcategoria subcategoria){
+    public boolean inserir(Subcategoria subcategoria){
+        var existsInDataBase = new SubcategoriaDAOImpl().getById(subcategoria.getId()) != null;
 
-        int response = 0;
-
-        try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("INSERT INTO T_FPP_SUBCATEGORIA" +
-                    "(CD_SUBCATEGORIA, CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
-                    "VALUES (?, ?, ?, ?, ?)");
-
-            pstmt.setInt(1, subcategoria.getId());
-            pstmt.setInt(2, subcategoria.getCategoriaId());
-            pstmt.setInt(3, subcategoria.getIdUsuario());
-            pstmt.setInt(4, subcategoria.getTipo().getId());
-            pstmt.setString(5, subcategoria.getDescricao());
-
-            response = pstmt.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Erro de SQL: ", e);
-        } finally {
+        if (!existsInDataBase) {
             try {
-                pstmt.close();
-                conexao.close();
+                conexao = ConnectionManager.getInstance().getConnection();
+                pstmt = conexao.prepareStatement("INSERT INTO T_FPP_SUBCATEGORIA" +
+                        "(CD_SUBCATEGORIA, CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
+                        "VALUES (?, ?, ?, ?, ?)");
+                pstmt.setInt(1, subcategoria.getId());
+                pstmt.setInt(2, subcategoria.getCategoriaId());
+                pstmt.setInt(3, subcategoria.getIdUsuario());
+                pstmt.setInt(4, subcategoria.getTipo().getId());
+                pstmt.setString(5, subcategoria.getDescricao());
+
+                return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
-                logger.error("Erro ao fechar recursos: ", e);
+                logger.error("Erro de SQL: ", e);
+            } finally {
+                try {
+                    pstmt.close();
+                    conexao.close();
+                } catch (SQLException e) {
+                    logger.error("Erro ao fechar recursos: ", e);
+                }
             }
         }
 
-        return response;
+        return false;
     }
+
 
     @Override
     public boolean update(Subcategoria subcategoria){
@@ -173,8 +171,7 @@ public class SubcategoriaDAOImpl implements SubcategoriaDAO {
             pstmt.setString(4, subcategoria.getDescricao());
             pstmt.setInt(5, subcategoria.getId());
 
-            pstmt.executeUpdate();
-            return true;
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             logger.error("Erro de SQL: ", e);
         } finally {
