@@ -1,46 +1,37 @@
 package com.fipp.models.enums;
 
 public enum Status {
-	PAGO(0, "Pago"),
-	PARCELADO(1, "Parcelado"),
-	ATRASADO(2, "Atrasado"),
-	CANCELADO(3, "Cancelado"),
-	AGENDADO(4, "Agendado");
+	PAID(0, "Pago"),
+	INSTALLMENT(1, "Parcelado"),
+	OVERDUE(2, "Atrasado"),
+	CANCELLED(3, "Cancelado"),
+	SCHEDULED(4, "Agendado");
 
 
 	private final int id;
-	private final String descricao;
+	private final String description;
 
 
-	private Status(int id, String descricao)
-	{
+	Status(int id, String description) {
 		this.id = id;
-		this.descricao = descricao;
+		this.description = description;
 	}
 
 
-	public static Status valueById(int id)
-	{
-
+	public static Status valueById(int id) {
 		for(Status s : Status.values()){
-
 			if(s.getId() == id) return s;
-
 		}
-
 		return null;
-
 	}
 
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public String getDescricao()
-	{
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
 }

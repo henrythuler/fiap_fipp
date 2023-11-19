@@ -1,72 +1,72 @@
 package com.fipp.dao;
 
 import com.fipp.jdbc.ConnectionManager;
-import com.fipp.models.entities.Categoria;
+import com.fipp.models.entities.Category;
 import com.fipp.models.enums.*;
 import java.sql.*;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CategoriaDAOImpl implements DAO<Categoria> {
+public class CategoryDaoImpl implements Dao<Category> {
 
-    private static final Logger logger = LoggerFactory.getLogger(CategoriaDAOImpl.class);
-    private Connection conexao;
+    private static final Logger logger = LoggerFactory.getLogger(CategoryDaoImpl.class);
+    private Connection connection;
     PreparedStatement pstmt = null;
 
 
     @Override
-    public ArrayList<Categoria> getAll(){
+    public ArrayList<Category> getAll(){
 
-        ArrayList<Categoria> categorias = new ArrayList<>();
+        ArrayList<Category> categories = new ArrayList<>();
 
         try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA ORDER BY CD_CATEGORIA");
+            connection = ConnectionManager.getInstance().getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM T_FPP_CATEGORIA ORDER BY CD_CATEGORIA");
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
-                var categoria = new Categoria
+                var category = new Category
                         (
                                 result.getInt(1),
                                 result.getInt(2),
-                                Tipo.valueById(result.getInt(3)),
+                                Type.valueById(result.getInt(3)),
                                 result.getString(4)
                         );
-                categorias.add(categoria);
+                categories.add(category);
             }
         } catch (SQLException e) {
             logger.error("Erro de SQL: ", e);
         } finally {
             try {
                 pstmt.close();
-                conexao.close();
+                connection.close();
             } catch (SQLException e) {
                 logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
-        return categorias;
+        return categories;
     }
 
 
     @Override
-    public Categoria getById(int id){
+    public Category getById(int id){
 
-        Categoria categoria = null;
+        Category category = null;
 
         try{
-            conexao = ConnectionManager.getInstance().getConnection();
-            pstmt = conexao.prepareStatement("SELECT * FROM T_FPP_CATEGORIA WHERE CD_CATEGORIA = ?");
+            connection = ConnectionManager.getInstance().getConnection();
+            pstmt = connection.prepareStatement("SELECT * FROM T_FPP_CATEGORIA WHERE CD_CATEGORIA = ?");
             pstmt.setInt(1, id);
             ResultSet result = pstmt.executeQuery();
 
             while(result.next()){
-                categoria = new Categoria
+                category = new Category
                         (
                                 result.getInt(1),
                                 result.getInt(2),
-                                Tipo.valueById(result.getInt(3)),
+                                Type.valueById(result.getInt(3)),
                                 result.getString(4)
                         );
             }
@@ -76,33 +76,33 @@ public class CategoriaDAOImpl implements DAO<Categoria> {
         } finally {
             try {
                 pstmt.close();
-                conexao.close();
+                connection.close();
             } catch (SQLException e) {
                 logger.error("Erro ao fechar recursos: ", e);
             }
         }
 
-        return categoria;
+        return category;
     }
 
 
     @Override
-    public boolean inserir(Categoria categoria){
+    public boolean insert(Category category){
 
-        var existsInDataBase = getById(categoria.getId()) != null;
+        var existsInDataBase = getById(category.getId()) != null;
 
         if (!existsInDataBase) {
             try{
-                conexao = ConnectionManager.getInstance().getConnection();
+                connection = ConnectionManager.getInstance().getConnection();
 
-                pstmt = conexao.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
+                pstmt = connection.prepareStatement("INSERT INTO T_FPP_CATEGORIA" +
                         "(CD_CATEGORIA, CD_USUARIO, ID_TIPO, DS_DESCRICAO)" +
                         "VALUES (?, ?, ?, ?)");
 
-                pstmt.setInt(1, categoria.getId());
-                pstmt.setInt(2, categoria.getIdUsuario());
-                pstmt.setInt(3, categoria.getTipo().getId());
-                pstmt.setString(4, categoria.getDescricao());
+                pstmt.setInt(1, category.getId());
+                pstmt.setInt(2, category.getUserId());
+                pstmt.setInt(3, category.getType().getId());
+                pstmt.setString(4, category.getDescription());
 
                 return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
@@ -110,7 +110,7 @@ public class CategoriaDAOImpl implements DAO<Categoria> {
             } finally {
                 try {
                     pstmt.close();
-                    conexao.close();
+                    connection.close();
                 } catch (SQLException e) {
                     logger.error("Erro ao fechar recursos: ", e);
                 }
@@ -122,20 +122,20 @@ public class CategoriaDAOImpl implements DAO<Categoria> {
 
 
     @Override
-    public boolean update(Categoria categoria){
+    public boolean update(Category category){
 
-        var existsInDataBase = new CategoriaDAOImpl().getById(categoria.getId()) != null;
+        var existsInDataBase = new CategoryDaoImpl().getById(category.getId()) != null;
 
         if (existsInDataBase) {
             try {
-                conexao = ConnectionManager.getInstance().getConnection();
+                connection = ConnectionManager.getInstance().getConnection();
 
-                pstmt = conexao.prepareStatement("UPDATE T_FPP_CATEGORIA cd_usuario = ?, id_tipo = ?, ds_descricao = ? WHERE cd_categoria = ?");
+                pstmt = connection.prepareStatement("UPDATE T_FPP_CATEGORIA CD_USUARIO = ?, ID_TIPO = ?, DS_DESCRICAO = ? WHERE CD_CATEGORIA = ?");
 
-                pstmt.setInt(1, categoria.getIdUsuario());
-                pstmt.setInt(2, categoria.getTipo().getId());
-                pstmt.setString(3, categoria.getDescricao());
-                pstmt.setInt(4, categoria.getId());
+                pstmt.setInt(1, category.getUserId());
+                pstmt.setInt(2, category.getType().getId());
+                pstmt.setString(3, category.getDescription());
+                pstmt.setInt(4, category.getId());
 
                 return pstmt.executeUpdate() > 0;
             } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class CategoriaDAOImpl implements DAO<Categoria> {
             } finally {
                 try {
                     pstmt.close();
-                    conexao.close();
+                    connection.close();
                 } catch (SQLException e) {
                     logger.error("Erro ao fechar recursos: ", e);
                 }

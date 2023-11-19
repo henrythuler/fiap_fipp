@@ -1,10 +1,13 @@
 package com.fipp.jdbc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
     private static ConnectionManager instance;
 
     private ConnectionManager(){}
@@ -17,18 +20,18 @@ public class ConnectionManager {
 
     public Connection getConnection()
     {
-        Connection conexao = null;
+        Connection connection = null;
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            conexao = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL",
                     "RM99936",
                     "010384");
-        }catch(Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Erro: ", e);
         }
 
-        return conexao;
+        return connection;
     }
 }
