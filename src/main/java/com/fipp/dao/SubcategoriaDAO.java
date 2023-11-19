@@ -3,16 +3,8 @@ package com.fipp.dao;
 import com.fipp.models.entities.Subcategoria;
 import java.util.ArrayList;
 
-public interface SubcategoriaDAO {
-
-    ArrayList<Subcategoria> getAll();
-
-    Subcategoria getById(int id);
+public interface SubcategoriaDAO extends DAO<Subcategoria>{
 
     ArrayList<Subcategoria> getByCategoriaId(int id);
-
-    int inserir(Subcategoria subcategoria);
-
-    boolean update(Subcategoria subcategoria);
 
 }
