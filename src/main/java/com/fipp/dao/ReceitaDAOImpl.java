@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ReceitaDAOImpl implements ReceitaDAO {
+public class ReceitaDAOImpl implements DAO<Receita> {
 
     private static final Logger logger = LoggerFactory.getLogger(ReceitaDAOImpl.class);
     private Connection conexao;

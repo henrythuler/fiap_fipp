@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CategoriaDAOImpl implements CategoriaDAO {
+public class CategoriaDAOImpl implements DAO<Categoria> {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoriaDAOImpl.class);
     private Connection conexao;

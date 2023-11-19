@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DespesaDAOImpl implements DespesaDAO {
+public class DespesaDAOImpl implements DAO<Despesa> {
 
     private static final Logger logger = LoggerFactory.getLogger(DespesaDAOImpl.class);
     private Connection conexao;
