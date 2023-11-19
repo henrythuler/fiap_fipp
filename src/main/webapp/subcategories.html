@@ -38,29 +38,54 @@
                 <i class="material-symbols-outlined text-blue-600 text-sm">arrow_back_ios</i>
                 <span class="text-sm text-blue-600">Voltar</span>
             </a>
-            <h2 class="font-bold text-black  flex justify-center items-center">Categoria</h2>
+            <h2 class="font-bold text-black  flex justify-center items-center">Subcategorias</h2>
         </header>
 
         <main class="flex flex-col h-[580px] px-2 overflow-y-scroll __hide__scroll__bar">
 
-            <form name="category-form" id="income-form" method="post" action="" class="flex flex-col box-border gap-4 mt-4" >
 
-                <div class="flex flex-col justify-center">
-                    <label for="type" class="text-gray-300">Tipo</label>
-                    <input list="type" name="type" class="placeholder-gray-600 rounded-md px-2 py-3 w-full  bg-gray-300" placeholder="Ex: Despesa">
-                    <datalist id="type">
-                        <option value="Despesa">
-                        <option value="Receita">
-                    </datalist>
-                </div>
+            <table class="w-full mt-8">
+                <thead>
+                <tr class="leading-[2rem]">
+                    <th colspan="2" class="px-1 bg-gray-200">[Nome da categoria]</th>
+                </tr>
+                </thead>
 
-                <div class="flex flex-col justify-center">
-                    <label for="description" class="text-gray-300">Descrição</label>
-                    <input type="text" id="description" name="description" class="placeholder-gray-600 px-2 rounded-md py-3 w-full  bg-gray-300" required minlength="5" maxlength="15" placeholder="Ex: Alimentação">
-                </div>
+                <tbody class="divide-y divide-gray-700">
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Salário</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
 
-            </form>
-            <a class="material-symbols-outlined self-end bg-green-600 p-4 w-46 h-46 mr-6 mt-12 mb-8 rounded-full text-white text-center flex items-center justify-center" href="./categories.html">check</a>
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Freelance</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
+
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Moradia</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
+
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Compras online</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
+
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Cartão de Crédito</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
+
+                <tr class="leading-[3rem]">
+                    <td class="px-1">Veículo</td>
+                    <td><a href="subcategory-form.html" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
+                </tr>
+
+                </tbody>
+            </table>
+            <a class="material-symbols-outlined self-end bg-green-600 p-4 w-46 h-46 mr-2 mt-12 mb-8 rounded-full text-white text-center flex items-center justify-center" href="./subcategory-form.html">add</a>
+
 
         </main>
 
@@ -90,6 +115,8 @@
             </div>
 
         </footer>
+
+
 
 
     </section>
