@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -116,29 +119,28 @@
 
         <footer class="z-10 bottom-0 grid grid-cols-4 py-4 w-full bg-transparent ml-2">
             <div class="footer__item flex justify-center items-center w-20">
-                <a href="./index.html">
+                <a href="./home.jsp">
                     <span class="material-symbols-outlined scale-[1.4]">home</span>
                 </a>
             </div>
 
             <div class="footer__item flex justify-center items-center w-20">
-                <a href="./income-form.html">
+                <a href="income-form.jsp">
                     <span class="material-symbols-outlined scale-[1.4]">trending_up</span>
                 </a>
             </div>
 
             <div class="footer__item flex justify-center items-center w-20">
-                <a href="./expense-form.html">
+                <a href="expense-form.jsp">
                     <span class="material-symbols-outlined scale-[1.4]">trending_down</span>
                 </a>
             </div>
 
             <div class="footer__item flex justify-center items-center w-20">
-                <a href="./categories.html">
+                <a href="./categories.jsp">
                     <span class="material-symbols-outlined scale-[1.4]">category</span>
                 </a>
             </div>
-
         </footer>
 
 

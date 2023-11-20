@@ -109,7 +109,7 @@ public class ExpenseDaoImpl implements Dao<Expense> {
                 connection = ConnectionManager.getInstance().getConnection();
                 //Na minha tabela não está DS_DESCRICAO, mas sim DS_DESPESA
                 pstmt = connection.prepareStatement("INSERT INTO T_FPP_DESPESA" +
-                        "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESPESA, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
+                        "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 pstmt.setInt(1, expense.getId());
                 pstmt.setInt(2, expense.getUserId());
