@@ -15,7 +15,7 @@
 body{
     height: 100vh;
     display: flex;
-    background-image: linear-gradient(to right, #fce7f3, #d8b4fe, #818cf8);
+    background-image: linear-gradient(to right, #fce7f3, #ffa500, #cf0e0e);
 }
 
 .__mockup__iphone__splash{
