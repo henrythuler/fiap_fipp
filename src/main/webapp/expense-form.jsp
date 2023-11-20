@@ -17,14 +17,6 @@
 
 <body>
 
-<%
-
-    if(session.getAttribute("categories") == null){
-        request.getRequestDispatcher("/category?load=1").forward(request, response);
-    }
-
-%>
-
 <!-- Mock iPhone -->
 <section class="__mockup__iphone__navbar">
 

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Splash Screen -->
-    <meta http-equiv="refresh" content="3; URL='./home.jsp'" />
+    <meta http-equiv="refresh" content="3; URL='/category'" />
 
-    <title>Alucar</title>
+    <title>Fipp</title>
 
     <%@ include file="./snippets/head.html"%>
 
