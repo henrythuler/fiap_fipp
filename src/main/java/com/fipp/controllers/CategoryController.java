@@ -24,14 +24,7 @@ public class CategoryController extends HttpServlet {
         if (id == 0) {
 
             session.setAttribute("categories", dao.getAll());
-
-            req.setAttribute("firstRequest", req.getServletPath());
-
-            if(req.getParameter("load").equals("1")){
-                req.getRequestDispatcher("subcategory").forward(req, res);
-            }
-
-            req.getRequestDispatcher("income-form.jsp").forward(req, res);
+            req.getRequestDispatcher("subcategory").forward(req, res);
 
         }
         else {

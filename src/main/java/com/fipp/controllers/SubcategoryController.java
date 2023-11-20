@@ -24,13 +24,11 @@ public class SubcategoryController extends HttpServlet {
         var dao = new SubcategoryDaoImpl();
 
         if (id == 0 && categoryId == 0) {
+
             session.setAttribute("subcategories", dao.getAll());
 
-            if (req.getParameter("load").equals("1")){
-                req.getRequestDispatcher((String) req.getAttribute("firstRequest")).forward(req, res);
-            }
+            req.getRequestDispatcher("home.jsp").forward(req, res);
 
-            req.getRequestDispatcher("subcategories.jsp").forward(req, res);
         } else if (id == 0 && categoryId > 0) {
             req.setAttribute("subcategory", dao.getByCategoryId(id));
             req.getRequestDispatcher("subcategoryForm.jsp").forward(req, res);
