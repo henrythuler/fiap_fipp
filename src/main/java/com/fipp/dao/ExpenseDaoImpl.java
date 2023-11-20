@@ -107,8 +107,9 @@ public class ExpenseDaoImpl implements Dao<Expense> {
         if (!existsInDataBase) {
             try {
                 connection = ConnectionManager.getInstance().getConnection();
+                //Na minha tabela não está DS_DESCRICAO, mas sim DS_DESPESA
                 pstmt = connection.prepareStatement("INSERT INTO T_FPP_DESPESA" +
-                        "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESCRICAO, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
+                        "(CD_DESPESA, CD_USUARIO, DT_DATA, VL_VALOR, NR_METODO, DS_DESPESA, CD_CATEGORIA, CD_SUBCATEGORIA, ST_STATUS, NM_BENEFICIARIO)" +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 pstmt.setInt(1, expense.getId());
                 pstmt.setInt(2, expense.getUserId());
@@ -124,7 +125,11 @@ public class ExpenseDaoImpl implements Dao<Expense> {
                 pstmt.setInt(9, expense.getStatus().getId());
                 pstmt.setString(10, expense.getBeneficiary());
 
-                return pstmt.executeUpdate() > 0;
+                System.out.println("Cadastro inserido com sucesso!");
+
+                pstmt.executeUpdate();
+
+                return true;
             } catch (SQLException e) {
                 logger.error("Erro de SQL: ", e);
             } finally {
@@ -145,10 +150,13 @@ public class ExpenseDaoImpl implements Dao<Expense> {
 
         var existsInDataBase = new ExpenseDaoImpl().getById(expense.getId()) != null;
 
+        System.out.println("Entrei aqui no update!");
+
         if (existsInDataBase) {
             try {
                 connection = ConnectionManager.getInstance().getConnection();
-                pstmt = connection.prepareStatement("UPDATE T_FPP_DESPESA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESCRICAO = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_BENEFICIARIO = ? WHERE CD_DESPESA = ?");
+                //Na minha tabela não está DS_DESCRICAO, mas sim DS_DESPESA
+                pstmt = connection.prepareStatement("UPDATE T_FPP_DESPESA CD_USUARIO = ?, DT_DATA = ?, VL_VALOR = ?, NR_METODO = ?, DS_DESPESA = ?, CD_CATEGORIA = ?, CD_SUBCATEGORIA = ?, ST_STATUS = ?, NM_BENEFICIARIO = ? WHERE CD_DESPESA = ?");
                 pstmt.setInt(1, expense.getUserId());
                 pstmt.setDate(2, expense.getDate());
                 pstmt.setBigDecimal(3, expense.getValue());
@@ -163,7 +171,11 @@ public class ExpenseDaoImpl implements Dao<Expense> {
                 pstmt.setString(9, expense.getBeneficiary());
                 pstmt.setInt(10, expense.getId());
 
-                return pstmt.executeUpdate() > 0;
+                pstmt.executeUpdate();
+
+                System.out.println("Cadastro atualizado com sucesso!");
+
+                return true;
             } catch (SQLException e) {
                 logger.error("Erro de SQL: ", e);
             } finally {

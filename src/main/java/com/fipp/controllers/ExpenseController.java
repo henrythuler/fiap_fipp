@@ -33,26 +33,25 @@ public class ExpenseController extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
+        int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
 
         var expense = new Expense(
-                Integer.parseInt(req.getParameter("id")),
-                Integer.parseInt(session.getAttribute("userId").toString()),
+                1,
                 Date.valueOf(req.getParameter("date")),
                 new BigDecimal(req.getParameter("value")),
-                Method.valueById(Integer.parseInt(req.getParameter("method"))),
+                Method.valueByDescription(req.getParameter("method")),
                 req.getParameter("description"),
-                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category"))),
-                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory"))),
-                Status.valueById(Integer.parseInt(req.getParameter("status"))),
+                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category-id"))),
+                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory-id"))),
+                Status.valueByDescription(req.getParameter("status")),
                 req.getParameter("beneficiary")
         );
 
         var dao = new ExpenseDaoImpl();
-        boolean success = expense.getId() == 0 ? dao.insert(expense) : dao.update(expense);
+        boolean success = id == 0 ? dao.insert(expense) : dao.update(expense);
 
         if (success)
-            req.getRequestDispatcher("expenses.jsp").forward(req, res);
+            req.getRequestDispatcher("expense-form.jsp").forward(req, res);
         else
             req.getRequestDispatcher("expenseError.jsp").forward(req, res);
     }

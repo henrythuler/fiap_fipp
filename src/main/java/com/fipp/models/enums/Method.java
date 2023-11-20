@@ -35,5 +35,12 @@ public enum Method {
 		}
 		return null;
 	}
+
+	public static Method valueByDescription(String description) {
+		for (Method m : Method.values()) {
+			if (m.getDescription().equalsIgnoreCase(description)) return m;
+		}
+		return null;
+	}
 	
 }

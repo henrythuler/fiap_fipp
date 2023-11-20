@@ -12,15 +12,15 @@ public class IncomeDaoImpl implements Dao<Income> {
 
     private static final Logger logger = LoggerFactory.getLogger(IncomeDaoImpl.class);
     private Connection connection;
-    PreparedStatement pstmt = null;
-
 
     @Override
     public ArrayList<Income> getAll(){
 
         ArrayList<Income> incomes = new ArrayList<>();
+        PreparedStatement pstmt = null;
 
         try{
+            System.out.println(connection == null);
             connection = ConnectionManager.getInstance().getConnection();
             pstmt = connection.prepareStatement("SELECT * FROM T_FPP_RECEITA ORDER BY CD_RECEITA");
 
@@ -29,7 +29,6 @@ public class IncomeDaoImpl implements Dao<Income> {
             while(result.next()){
                 var income = new Income
                         (
-                                result.getInt(1),
                                 result.getInt(2),
                                 result.getDate(3),
                                 result.getBigDecimal(4),
@@ -46,6 +45,7 @@ public class IncomeDaoImpl implements Dao<Income> {
             logger.error("Erro de SQL: ", e);
         } finally {
             try {
+                assert pstmt != null;
                 pstmt.close();
                 connection.close();
             } catch (SQLException e) {
@@ -61,6 +61,7 @@ public class IncomeDaoImpl implements Dao<Income> {
     public Income getById(int id){
 
         Income income = null;
+        PreparedStatement pstmt = null;
 
         try{
             connection = ConnectionManager.getInstance().getConnection();
@@ -103,6 +104,7 @@ public class IncomeDaoImpl implements Dao<Income> {
     public boolean insert(Income income){
 
         var existsInDataBase = new IncomeDaoImpl().getById(income.getId()) != null;
+        PreparedStatement pstmt = null;
 
         if (!existsInDataBase) {
             try {
@@ -124,7 +126,12 @@ public class IncomeDaoImpl implements Dao<Income> {
                 pstmt.setInt(9, income.getStatus().getId());
                 pstmt.setString(10, income.getPayer());
 
-                return pstmt.executeUpdate() > 0;
+                pstmt.executeUpdate();
+
+                System.out.println("Cadastro inserido com sucesso!");
+
+                return true;
+
             } catch (SQLException e) {
                 logger.error("Erro de SQL: ", e);
             } finally {
@@ -145,6 +152,7 @@ public class IncomeDaoImpl implements Dao<Income> {
     public boolean update(Income income){
 
         var existsInDataBase = new IncomeDaoImpl().getById(income.getId()) != null;
+        PreparedStatement pstmt = null;
 
         if (existsInDataBase) {
             try {
@@ -164,7 +172,12 @@ public class IncomeDaoImpl implements Dao<Income> {
                 pstmt.setString(9, income.getPayer());
                 pstmt.setInt(10, income.getId());
 
-                return pstmt.executeUpdate() > 0;
+                pstmt.executeUpdate();
+
+                System.out.println("Cadastro atualizado com sucesso!");
+
+                return true;
+
             } catch (SQLException e) {
                 logger.error("Erro de SQL: ", e);
             } finally {

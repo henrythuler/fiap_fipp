@@ -25,6 +25,12 @@ public enum Status {
 		return null;
 	}
 
+	public static Status valueByDescription(String description) {
+		for (Status s : Status.values()) {
+			if (s.getDescription().equalsIgnoreCase(description)) return s;
+		}
+		return null;
+	}
 
 	public int getId() {
 		return id;

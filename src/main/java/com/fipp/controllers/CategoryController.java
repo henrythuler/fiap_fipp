@@ -19,9 +19,20 @@ public class CategoryController extends HttpServlet {
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
         var dao = new CategoryDaoImpl();
 
+        HttpSession session = req.getSession();
+
         if (id == 0) {
-            req.setAttribute("categories", dao.getAll());
-            req.getRequestDispatcher("subcategories.jsp").forward(req, res);
+
+            session.setAttribute("categories", dao.getAll());
+
+            req.setAttribute("firstRequest", req.getServletPath());
+
+            if(req.getParameter("load").equals("1")){
+                req.getRequestDispatcher("subcategory").forward(req, res);
+            }
+
+            req.getRequestDispatcher("income-form.jsp").forward(req, res);
+
         }
         else {
             req.setAttribute("category", dao.getById(id));
