@@ -33,28 +33,27 @@ public class IncomeController extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
+        int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
 
         var income = new Income(
-                Integer.parseInt(req.getParameter("id")),
-                Integer.parseInt(session.getAttribute("userId").toString()),
+                1,
                 Date.valueOf(req.getParameter("date")),
                 new BigDecimal(req.getParameter("value")),
-                Method.valueById(Integer.parseInt(req.getParameter("method"))),
+                Method.valueByDescription(req.getParameter("method")),
                 req.getParameter("description"),
-                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category"))),
-                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory"))),
-                Status.valueById(Integer.parseInt(req.getParameter("status"))),
+                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category-id"))),
+                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory-id"))),
+                Status.valueByDescription(req.getParameter("status")),
                 req.getParameter("payer")
         );
 
         var dao = new IncomeDaoImpl();
-        boolean success = income.getId() == 0 ? dao.insert(income) : dao.update(income);
+        boolean success = id == 0 ? dao.insert(income) : dao.update(income);
 
         if (success)
-            req.getRequestDispatcher("incomes.jsp").forward(req, res);
+            req.getRequestDispatcher("income-form.jsp").forward(req, res);
         else
-            req.getRequestDispatcher("incomeError.jsp").forward(req, res);
+            req.getRequestDispatcher("income-error.jsp").forward(req, res);
     }
 
 }

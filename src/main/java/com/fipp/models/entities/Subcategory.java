@@ -26,7 +26,7 @@ public class Subcategory
     }
     public int getId() { return id; }
     public int getCategoryId() { return categoryId; }
-    public Type getTipo() { return type; }
+    public Type getType() { return type; }
     public int getUserId() { return userId; }
     public void setId(int id) { this.id = id; }
 }

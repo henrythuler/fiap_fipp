@@ -17,12 +17,19 @@ public class SubcategoryController extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        HttpSession session = req.getSession();
+
         int id = req.getParameter("id") == null ? 0 : Integer.parseInt(req.getParameter("id"));
         int categoryId = req.getParameter("categoryId") == null ? 0 : Integer.parseInt(req.getParameter("categoryId"));
         var dao = new SubcategoryDaoImpl();
 
         if (id == 0 && categoryId == 0) {
-            req.setAttribute("subcategories", dao.getAll());
+            session.setAttribute("subcategories", dao.getAll());
+
+            if (req.getParameter("load").equals("1")){
+                req.getRequestDispatcher((String) req.getAttribute("firstRequest")).forward(req, res);
+            }
+
             req.getRequestDispatcher("subcategories.jsp").forward(req, res);
         } else if (id == 0 && categoryId > 0) {
             req.setAttribute("subcategory", dao.getByCategoryId(id));

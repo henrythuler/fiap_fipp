@@ -25,9 +25,9 @@ public class ConnectionManager {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL",
-                    "RM99936",
-                    "010384");
+                    "jdbc:oracle:thin:@localhost:1521/XEPDB1",
+                    "sys as sysdba",
+                    "1234");
         } catch (Exception e) {
             logger.error("Erro: ", e);
         }

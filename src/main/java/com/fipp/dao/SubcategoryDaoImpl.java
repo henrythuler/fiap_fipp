@@ -140,7 +140,7 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
                 pstmt.setInt(1, subcategory.getId());
                 pstmt.setInt(2, subcategory.getCategoryId());
                 pstmt.setInt(3, subcategory.getUserId());
-                pstmt.setInt(4, subcategory.getTipo().getId());
+                pstmt.setInt(4, subcategory.getType().getId());
                 pstmt.setString(5, subcategory.getDescription());
 
                 return pstmt.executeUpdate() > 0;
@@ -167,7 +167,7 @@ public class SubcategoryDaoImpl implements SubcategoryDao {
             pstmt = connection.prepareStatement("UPDATE T_FPP_SUBCATEGORIA SET CD_CATEGORIA = ?, CD_USUARIO = ?, ID_TIPO = ?, DS_DESCRICAO = ? WHERE CD_SUBCATEGORIA = ?");
             pstmt.setInt(1, subcategory.getCategoryId());
             pstmt.setInt(2, subcategory.getUserId());
-            pstmt.setInt(3, subcategory.getTipo().getId());
+            pstmt.setInt(3, subcategory.getType().getId());
             pstmt.setString(4, subcategory.getDescription());
             pstmt.setInt(5, subcategory.getId());
 
