@@ -27,7 +27,7 @@ public class SubcategoryController extends HttpServlet {
 
             session.setAttribute("subcategories", dao.getAll());
 
-            req.getRequestDispatcher("home.jsp").forward(req, res);
+            req.getRequestDispatcher("transaction").forward(req, res);
 
         } else if (id == 0 && categoryId > 0) {
             req.setAttribute("subcategory", dao.getByCategoryId(id));

@@ -35,9 +35,9 @@
                         <select name="status" id="status" class="min-w-[150px] placeholder-gray-600 rounded-md px-2 py-3 w-full bg-gray-300">
                             <option value="Pago">Pago</option>
                             <option value="Parcelado">Parcelado</option>
-                            <option value="Atrasado">Parcelado</option>
-                            <option value="Cancelado">Parcelado</option>
-                            <option value="Agendado">Parcelado</option>
+                            <option value="Atrasado">Atrasado</option>
+                            <option value="Cancelado">Cancelado</option>
+                            <option value="Agendado">Agendado</option>
                         </select>
                     </div>
 
