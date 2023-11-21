@@ -41,8 +41,8 @@ public class ExpenseController extends HttpServlet {
                 new BigDecimal(req.getParameter("value")),
                 Method.valueByDescription(req.getParameter("method")),
                 req.getParameter("description"),
-                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category-id"))),
-                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory-id"))),
+                new CategoryDaoImpl().getById(Integer.parseInt(req.getParameter("category-expense"))),
+                new SubcategoryDaoImpl().getById(Integer.parseInt(req.getParameter("subcategory-expense"))),
                 Status.valueByDescription(req.getParameter("status")),
                 req.getParameter("beneficiary")
         );

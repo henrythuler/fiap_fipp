@@ -32,14 +32,13 @@
             <form name="income-form" id="income-form" method="post" action="expense" class="flex flex-col box-border gap-4 mt-4" >
                 <div class="pr-8 flex gap-4 items-center self-center mb-8">
                     <label for="status" class="m-2 text-gray-700">Status</label>
-                    <input list="status" name="status" class="placeholder-gray-600 rounded-md px-2 py-3 w-full bg-gray-300" placeholder="Ex: Agendado">
-                    <datalist id="status">
-                        <option value="Pago">
-                        <option value="Parcelado">
-                        <option value="Atrasado">
-                        <option value="Cancelado">
-                        <option value="Agendado">
-                    </datalist>
+                    <select name="status" id="status" class="min-w-[150px] placeholder-gray-600 rounded-md px-2 py-3 w-full bg-gray-300">
+                        <option value="Pago">Pago</option>
+                        <option value="Parcelado">Parcelado</option>
+                        <option value="Atrasado">Parcelado</option>
+                        <option value="Cancelado">Parcelado</option>
+                        <option value="Agendado">Parcelado</option>
+                    </select>
                 </div>
 
 
@@ -63,48 +62,47 @@
 
                 <div class="flex flex-col justify-center">
                     <label for="category-expense" class="text-gray-300">Categoria</label>
-                    <input list="category-expense" name="category" class="placeholder-gray-600 rounded-md px-2 py-3 w-full  bg-gray-300" placeholder="Ex: Alimentação">
-                    <datalist id="category-expense">
+                    <select name="category-expense" id="category-expense" class="placeholder-gray-600 rounded-md px-2 py-3 w-full  bg-gray-300" placeholder="Ex: Alimentação">
                         <c:forEach var="category" items="${categories}">
 
                             <c:if test="${category.getType().getId() == 0}">
-                                <option value="${category.getDescription()}" category-id="${category.getId()}">
-                                    <input type="hidden" name="category-id" value="${category.getId()}"/>
+                                <option value="${category.getId()}">
+                                    ${category.getDescription()}
                                 </option>
                             </c:if>
 
                         </c:forEach>
-                    </datalist>
+                    </select>
                 </div>
+
                 <div class="flex flex-col justify-center">
                     <label for="subcategory-expense" class="text-gray-300">Subcategoria</label>
-                    <input list="subcategory-expense" name="subcategory" class="placeholder-gray-600 rounded-md px-2 py-3 w-full bg-gray-300" placeholder="Ex: Restaurante">
-                    <datalist id="subcategory-expense">
+                    <select name="subcategory-expense" id="subcategory-expense" class="placeholder-gray-600 rounded-md px-2 py-3 w-full bg-gray-300">
                         <c:forEach var="subcategory" items="${subcategories}">
 
                             <c:if test="${subcategory.getType().getId() == 0}">
 
-                                <option value="${subcategory.getDescription()}">
-                                    <input type="hidden" name="subcategory-id" value="${subcategory.getId()}"/>
+                                <option value="${subcategory.getId()}">
+                                        ${subcategory.getDescription()}
                                 </option>
 
                             </c:if>
 
                         </c:forEach>
-                    </datalist>
+
+                    </select>
                 </div>
 
 
                 <div class="flex flex-col justify-center mt-2">
                     <label for="method" class="text-gray-300">Método</label>
-                    <input list="method" name="method" class="placeholder-gray-600 flex rounded-md px-2 py-3 w-full bg-gray-300" placeholder="Ex: Débito">
-                    <datalist id="method">
-                        <option value="Débito">
-                        <option value="Crédito">
-                        <option value="Boleto">
-                        <option value="Pix">
-                        <option value="Dinheiro">
-                    </datalist>
+                    <select name="method" id="method" class="placeholder-gray-600 flex rounded-md px-2 py-3 w-full bg-gray-300">
+                        <option value="Débito">Débito</option>
+                        <option value="Crédito">Crédito</option>
+                        <option value="Boleto">Boleto</option>
+                        <option value="Pix">Pix</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                    </select>
                 </div>
 
 
