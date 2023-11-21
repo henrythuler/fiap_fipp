@@ -52,97 +52,42 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-700">
-                <tr class="text-green-600 leading-[3rem]">
-                    <td class="px-1">05/04/2023</td>
-                    <td class="px-1">Salário</td>
-                    <td class="px-1">R$ 2.800,00</td>
 
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
+                    <c:forEach var="t" items="${transactions}">
 
-                </tr>
+                        <c:if test="${Integer.parseInt(t.getValue()) > 0}">
 
-                <tr class="text-red-500 leading-[3rem]">
-                    <td class="px-1">05/04/2023</td>
-                    <td class="px-1">Moradia</td>
-                    <td class="px-1">R$ 1.500,00</td>
+                            <tr class="text-green-600 leading-[3rem] border border-none">
 
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
+                                <td class="px-1">${t.getDate()}</td>
+                                <td class="px-1">${t.getDescriptionCategory()}</td>
+                                <td class="px-1">${t.getValue()}</td>
 
-                </tr>
+                            </tr>
 
-                <tr class="text-red-500 leading-[3rem]">
-                    <td class="px-1">07/04/2023</td>
-                    <td class="px-1">Compras online</td>
-                    <td class="px-1">R$ 262,30</td>
+                        </c:if>
 
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
+                        <c:if test="${Integer.parseInt(t.getValue()) < 0}">
 
-                </tr>
+                            <tr class="text-red-600 leading-[3rem] border border-none">
 
-                <tr class="text-red-500 leading-[3rem]">
-                    <td class="px-1">10/04/2023</td>
-                    <td class="px-1">Cartão de Crédito</td>
-                    <td class="px-1">R$ 850,00</td>
+                                <td class="px-1">${t.getDate()}</td>
+                                <td class="px-1">${t.getDescriptionCategory()}</td>
+                                <td class="px-1">${t.getValue()}</td>
 
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
+                            </tr>
 
-                </tr>
+                        </c:if>
 
-                <tr class="text-red-500 leading-[3rem]">
-                    <td class="px-1">12/04/2023</td>
-                    <td class="px-1">Veículo</td>
-                    <td class="px-1">R$ 215,00</td>
+                    </c:forEach>
 
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
-
-                </tr>
-
-                <tr class="text-green-600 leading-[3rem]">
-                    <td class="px-1">15/04/2023</td>
-                    <td class="px-1">Freelance</td>
-                    <td class="px-1">R$ 1.000,00</td>
-
-                    <td><a href="#" class="material-symbols-outlined text-gray-400 text-sm">arrow_right_alt</a></td>
-                    <!-- Call method that redirect object to income-form.html or expense-form.html -->
-
-                </tr>
                 </tbody>
             </table>
 
 
         </main>
 
-        <footer class="z-10 bottom-0 grid grid-cols-4 py-4 w-full bg-transparent ml-2">
-            <div class="footer__item flex justify-center items-center w-20">
-                <a href="./home.jsp">
-                    <span class="material-symbols-outlined scale-[1.4]">home</span>
-                </a>
-            </div>
-
-            <div class="footer__item flex justify-center items-center w-20">
-                <a href="income-form.jsp">
-                    <span class="material-symbols-outlined scale-[1.4]">trending_up</span>
-                </a>
-            </div>
-
-            <div class="footer__item flex justify-center items-center w-20">
-                <a href="expense-form.jsp">
-                    <span class="material-symbols-outlined scale-[1.4]">trending_down</span>
-                </a>
-            </div>
-
-            <div class="footer__item flex justify-center items-center w-20">
-                <a href="./categories.jsp">
-                    <span class="material-symbols-outlined scale-[1.4]">category</span>
-                </a>
-            </div>
-        </footer>
-
+        <%@ include file="./snippets/footer.html"%>
 
     </section>
 
