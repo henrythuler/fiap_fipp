@@ -10,7 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fipp</title>
 
-    <%@ include file="./snippets/head.html"%>
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Tailwindcss -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
@@ -104,7 +117,31 @@
 
         </main>
 
-        <%@ include file="./snippets/footer.html"%>
+        <footer class="z-10 bottom-0 grid grid-cols-4 py-4 w-full bg-transparent ml-2">
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="./home.jsp">
+                    <span class="material-symbols-outlined scale-[1.4]">home</span>
+                </a>
+            </div>
+
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="income-form.jsp">
+                    <span class="material-symbols-outlined scale-[1.4]">trending_up</span>
+                </a>
+            </div>
+
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="expense-form.jsp">
+                    <span class="material-symbols-outlined scale-[1.4]">trending_down</span>
+                </a>
+            </div>
+
+            <div class="footer__item flex justify-center items-center w-20">
+                <a href="./categories.jsp">
+                    <span class="material-symbols-outlined scale-[1.4]">category</span>
+                </a>
+            </div>
+        </footer>
 
 
     </section>
