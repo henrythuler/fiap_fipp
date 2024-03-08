@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Splash Screen -->
-    <meta http-equiv="refresh" content="3; URL='/category'" />
+    <!-- Colocar URL da Página de Login-->
+    <meta http-equiv="refresh" content="3; URL='login.jsp'" />
 
     <title>Fipp</title>
 

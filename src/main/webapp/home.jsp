@@ -10,20 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fipp</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="./styles/styles.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <!-- Google Icons -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-    <!-- Tailwindcss -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <%@ include file="./snippets/head.html"%>
 
 </head>
 
@@ -39,7 +26,6 @@
         <main class="flex flex-col h-[580px] px-2 overflow-y-scroll __hide__scroll__bar">
 
             <h1 class="flex justify-center pt-[10%] text-5xl text-slate-700">Fipp</h1>
-
 
             <table class="w-full mt-8">
                 <thead>
